@@ -1,0 +1,11 @@
+.login{
+    height: 100%;
+    width: 100%;
+    background-image: url('../Image/background-3.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 100% cover;
+}
+.loginForm{
+   padding-top: 200px;
+
+}
