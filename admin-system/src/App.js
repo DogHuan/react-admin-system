@@ -1,6 +1,7 @@
 import './App.css';
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, Redirect } from 'react-router-dom'
 import Login from './Login/index'
+import MainMeun from './MainMeun';
 
 // 一、函数组件的声明方式有两种：
 // 1、function + 函数名   2、const + 函数名=(props)=>
@@ -13,8 +14,10 @@ const App = (props) => {
     // 方法2用 Redirect 会重定向url，推荐方法1。
     <Switch>
       {/* 此刻页面路由就会自定义为Login登录页面了 */}
-      <Route path="/" component={Login} exact></Route>
+      {/* <Route path="/" component={Login} ></Route> */}
       <Route path="/login" component={Login}></Route>
+      <Route path="/mainMeun" component={MainMeun}></Route>
+      <Redirect to="/login" />
     </Switch>
   );
 }

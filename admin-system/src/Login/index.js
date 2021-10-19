@@ -1,7 +1,9 @@
 import React, { Component } from "react";
+import { Route, Switch, Link } from 'react-router-dom';
 import { Form, Input, Button, Checkbox, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import './index.css'
+import MainMeun from "../MainMeun";
 export default class Login extends Component {
   constructor(props) {
     super(props)
@@ -87,12 +89,7 @@ export default class Login extends Component {
               </Button>
             </Form.Item>
           </Form>
-          <Button type="primary" htmlType="submit" onClick={this.handleUser} >
-            用户
-          </Button>
-          <Button type="primary" htmlType="submit" onClick={this.handleCommod} >
-            商品
-          </Button>
+          <Link to='/MainMeun'>用户管理</Link>
         </div>
       </div>
     )
