@@ -1,4 +1,4 @@
-import React, { Component} from "react";
+import React, { Component } from "react";
 import { Form, Input, Button, Checkbox, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import './index.css'
@@ -16,24 +16,24 @@ export default class Login extends Component {
     //抓取登录表单输入的值，使用fetch()方法传递给后端
     //1、url请求地址 2、method请求方法 
     //3、header请求头(请求头格式需要分情况设置) 4、body请求体(这里使用JSON格式发送数据)
-    fetch("url",{
-      method:"POST",
+    fetch("url", {
+      method: "POST",
       header: new Headers({
         "Content-Type": "application/json;charset=UTF-8",
       }),
       //1.直接传送formData数组给后端
-      body:JSON.stringify(formData)
+      body: JSON.stringify(formData)
       //2.分别设置formData内部的值
       // body:JSON.stringify({
       //   username:formData.username,
       //   password:formData.password
       // })
-    }).then((response) =>response.json()
-    ).then((result)=>{
+    }).then((response) => response.json()
+    ).then((result) => {
       //1.判断请求结果的msg
       // if(result.msg==='ok')
       //2.判断请求结果的code值
-      if(result.code>=200||result.code<300){
+      if (result.code >= 200 || result.code < 300) {
         console.log("登录成功")
       }
       //3.对错误异常的处理
@@ -58,7 +58,7 @@ export default class Login extends Component {
                 },
               ]}
             >
-              <Input prefix={<UserOutlined/>}
+              <Input prefix={<UserOutlined />}
                 placeholder="请输入用户名或账号" />
             </Form.Item>
             <Form.Item
@@ -87,6 +87,12 @@ export default class Login extends Component {
               </Button>
             </Form.Item>
           </Form>
+          <Button type="primary" htmlType="submit" onClick={this.handleUser} >
+            用户
+          </Button>
+          <Button type="primary" htmlType="submit" onClick={this.handleCommod} >
+            商品
+          </Button>
         </div>
       </div>
     )
