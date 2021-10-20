@@ -4,6 +4,7 @@ import logo from '../Image/background-1.jpg'
 import { Route, Switch, Link, withRouter, Redirect } from 'react-router-dom'
 import { UserOutlined, AppstoreOutlined, BarsOutlined } from "@ant-design/icons";
 import UserManage from '../Admin/UserManage/index'
+import CommondityManage from '../Admin/CommodityManage'
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 //一、对函数组件的初步使用以及数据的存储
@@ -11,7 +12,7 @@ const { SubMenu } = Menu;
 //1.1、我们对系统要具备的功能进行配置，即需要什么角色，每个角色又拥有多少功能。也就转变为父菜单和子菜单。
 // 这里我们借鉴使用对象去存储数据，每个对象以角色去命名，设置key，title等属性，代表一级目录（父菜单）。
 // 同时每个对象内部嵌套一个childern孩子数组来存储二级目录（子菜单），设置key，title等属性，component来作为
-// 渲染不同页面时的入口。
+// 渲染不同页面时的入口，而此刻link作为不同页面渲染时出口存储字符串。
 const menuAdmin = {
   title: "管理员功能",
   key: "admin",
@@ -19,16 +20,16 @@ const menuAdmin = {
   children: [
     {
       title: "用户管理",
-      key: "/mainMenu/Admin/UserManage",
-      link: "/mainMenu/Admin/UserManage",
+      key: "/MainMenu/Admin/UserManage",
+      link: "/MainMenu/Admin/UserManage",
       icon: <BarsOutlined />,
       component: UserManage,
     }, {
       title: "云服务商管理",
-      key: "/main/admin/vendersList",
-      link: "/main/admin/vendersList",
+      key: "/MainMenu/Admin/CommondityManage",
+      link: "/MainMenu/Admin/CommondityManage",
       icon: <BarsOutlined />,
-      component: UserManage,
+      component: CommondityManage,
     }, {
       title: "项目管理",
       key: "/main/admin/projectList",
