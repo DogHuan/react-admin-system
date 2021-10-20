@@ -6,7 +6,12 @@ import { UserOutlined, AppstoreOutlined, BarsOutlined } from "@ant-design/icons"
 import UserManage from '../Admin/UserManage/index'
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
-//一、对函数组件的初步使用
+//一、对函数组件的初步使用以及数据的存储
+//1、思考：这里我们一级目录和二级目录怎么去存储？怎么去取值？怎么去渲染不同级别目录的页面以及怎么存储的问题。
+//1.1、我们对系统要具备的功能进行配置，即需要什么角色，每个角色又拥有多少功能。也就转变为父菜单和子菜单。
+// 这里我们借鉴使用对象去存储数据，每个对象以角色去命名，设置key，title等属性，代表一级目录（父菜单）。
+// 同时每个对象内部嵌套一个childern孩子数组来存储二级目录（子菜单），设置key，title等属性，component来作为
+// 渲染不同页面时的入口。
 const menuAdmin = {
   title: "管理员功能",
   key: "admin",
