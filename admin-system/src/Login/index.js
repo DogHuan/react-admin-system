@@ -3,7 +3,7 @@ import { Route, Switch, Link } from 'react-router-dom';
 import { Form, Input, Button, Checkbox, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import './index.css'
-import MainMeun from "../MainMeun";
+import mainMenu from "../MainMenu";
 export default class Login extends Component {
   constructor(props) {
     super(props)
@@ -89,7 +89,7 @@ export default class Login extends Component {
               </Button>
             </Form.Item>
           </Form>
-          <Link to='/MainMeun'>用户管理</Link>
+          <Link to='/MainMenu'>用户管理</Link>
         </div>
       </div>
     )
