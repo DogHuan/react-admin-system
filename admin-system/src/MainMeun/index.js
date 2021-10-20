@@ -1,10 +1,9 @@
 import React,{Component} from 'react';
 import { Layout, Menu, Breadcrumb } from 'antd';
+import logo from '../Image/background-1.jpg'
+import { Route, Switch, Link } from 'react-router-dom'
 import {
-  DesktopOutlined,
-  PieChartOutlined,
-  FileOutlined,
-  TeamOutlined,
+  DesktopOutlined, PieChartOutlined, FileOutlined, TeamOutlined,
   UserOutlined,
 } from '@ant-design/icons';
 
@@ -25,13 +24,44 @@ export default class MainMeun extends Component {
     const { collapsed } = this.state;
     return (   
       <Layout style={{ minHeight: '100vh' }}>
-        <Sider collapsible collapsed={collapsed} onCollapse={this.onCollapse}>
-          <div className="logo" />
-          <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-            <Menu.Item key="1" icon={<PieChartOutlined />}>
+        {/* 头部导航栏的设置和logo图标的添加，后期可以在这里维护退出登录和个人信息修改 */}
+        <Header className="header">
+          <div className="left-nav-header header-logo">
+            <Link to="/mainMeun">
+              <img className="logo-img" src={logo} alt="" 
+              style={{width:40,height:40}}/>
+            </Link>
+          </div>
+        </Header>
+        <Layout className="layout-main">
+          <Sider className="layout-sider">
+            <Menu 
+                theme="dark"  
+                mode="inline"
+                defaultSelectedKeys={defaultSelectedKeys}
+                openKeys={openKeys} >
+
+            </Menu>
+          </Sider>
+        </Layout>
+          <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+        </Layout>    
+    );
+  }
+}
+{/* <Sider collapsible collapsed={collapsed} onCollapse={this.onCollapse}>
+        <div className="logo" />
+          <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" >
+            <Menu.Item key="1" icon={<PieChartOutlined />} style={{
+              height:64,
+              margin:0
+            }}>
               Option 1
             </Menu.Item>
-            <Menu.Item key="2" icon={<DesktopOutlined />}>
+            <Menu.Item key="2" icon={<DesktopOutlined />} style={{
+              height:64,
+              margin:0
+            }}>
               Option 2
             </Menu.Item>
             <SubMenu key="sub1" icon={<UserOutlined />} title="User">
@@ -49,21 +79,13 @@ export default class MainMeun extends Component {
           </Menu>
         </Sider>
         <Layout className="site-layout">
-          <Header className="site-layout-background" style={{ padding: 0 }} />
+         
           <Content style={{ margin: '0 16px' }}>
             <Breadcrumb style={{ margin: '16px 0' }}>
               <Breadcrumb.Item>User</Breadcrumb.Item>
               <Breadcrumb.Item>Bill</Breadcrumb.Item>
             </Breadcrumb>
             <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
-              Bill is a cat.
+             
             </div>
-          </Content>
-          <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
-        </Layout>
-      </Layout>
-      
-    );
-  }
-  
-}
+          </Content> */}
