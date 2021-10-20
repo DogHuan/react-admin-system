@@ -18,12 +18,22 @@ export default class UserManage extends Component {
       key: 'users',
     },
     {
-      title: 'Address',
-      dataIndex: 'address',
-      key: 'address',
+      title: '邮箱',
+      dataIndex: 'email',
+      key: 'email',
     },
     {
-      title: 'Tags',
+      title: '角色',
+      dataIndex: 'role',
+      key: 'role',
+    },
+    {
+      title: '权限',
+      dataIndex: 'permission',
+      key: 'permission',
+    },
+    {
+      title: '标签',
       key: 'tags',
       dataIndex: 'tags',
       render: tags => (
@@ -43,12 +53,12 @@ export default class UserManage extends Component {
     ),
     },
     {
-      title: 'Action',
-      key: 'action',
+      title: '操作',
+      key: 'operation',
       render: (text, record) => (
       <Space size="middle">
-            <a>Invite {record.name}</a>
-            <a>Delete</a>
+        <a>Invite {record.name}</a>
+        <a>Delete</a>
       </Space>
       ),
     },
