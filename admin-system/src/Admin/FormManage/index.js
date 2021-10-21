@@ -1,8 +1,33 @@
 import React, { Component } from "react";
-import { Form, Input, InputNumber, Button } from 'antd';
+import { Form, Input, InputNumber, Button,message } from 'antd';
 export default class FormManage extends Component {
-  constructor(props) {
-    super(props)
+  formRef =React.createRef();
+
+  handleSubmit=()=>{
+    const formData = this.formRef.current.getFieldsValue([
+      'Name','Email','password','rePassword','Age',
+      'Website','Introduction'
+    ])
+    //1、设置响应地址，方法，请求头，请求体body的JSON格式
+    fetch('url',{
+      method:"POST",
+      headers:{
+        contentType:'application/json',
+      },
+      body:JSON.stringify(formData)
+    }).then((response)=>response.json(
+    //2、设置对请求结果的处理
+    )).then((result)=>{
+      if(result.code===200){
+        message.success('提交成功')
+      }else{
+        message.error("设置失败"+result.msg)
+      }
+    })
+  }
+
+  handleReset=()=>{
+    this.formRef.current.resetFields()
   }
   render() {
     return (
@@ -72,10 +97,12 @@ export default class FormManage extends Component {
           <Input.TextArea />
         </Form.Item>
         <Form.Item wrapperCol={{ offset: 3, span: 8 }}>
-          <Button htmlType="submit" style={{marginRight:10}}>
+          <Button htmlType="submit" style={{marginRight:10}}
+          onClick={this.handleReset}>
             重置
           </Button>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit"
+          onClick={this.handleSubmit}>
             提交
           </Button>
         </Form.Item>
