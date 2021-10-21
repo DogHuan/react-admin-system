@@ -5,6 +5,7 @@ import { Route, Switch, Link, withRouter, Redirect } from 'react-router-dom'
 import { UserOutlined, AppstoreOutlined, BarsOutlined } from "@ant-design/icons";
 import UserManage from '../Admin/UserManage/index'
 import CommondityManage from '../Admin/CommodityManage'
+import FormManage from '../Admin/FormManage/index'
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 //一、对函数组件的初步使用以及数据的存储
@@ -37,11 +38,11 @@ const menuAdmin = {
       icon: <BarsOutlined />,
       component: UserManage,
     }, {
-      title: "权限管理",
-      key: "/main/admin/permissionList",
-      link: "/main/admin/permissionList",
+      title: "表单管理",
+      key: "/MainMenu/Admin/FormManage",
+      link: "/MainMenu/Admin/FormManage",
       icon: <BarsOutlined />,
-      component: UserManage,
+      component: FormManage,
     }, {
       title: "LDAP设置",
       key: "/main/admin/ldap",
