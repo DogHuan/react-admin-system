@@ -6,6 +6,7 @@ import { UserOutlined, AppstoreOutlined, BarsOutlined } from "@ant-design/icons"
 import UserManage from '../Admin/UserManage/index'
 import CommondityManage from '../Admin/CommodityManage'
 import FormManage from '../Admin/FormManage/index'
+import ChartManage from '../Admin/ChartManage/index'
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 //一、对函数组件的初步使用以及数据的存储
@@ -32,11 +33,11 @@ const menuAdmin = {
       icon: <BarsOutlined />,
       component: CommondityManage,
     }, {
-      title: "项目管理",
-      key: "/main/admin/projectList",
-      link: "/main/admin/projectList",
+      title: "图表管理",
+      key: "/MainMenu/Admin/ChartManage",
+      link: "/MainMenu/Admin/ChartManage",
       icon: <BarsOutlined />,
-      component: UserManage,
+      component: ChartManage,
     }, {
       title: "表单管理",
       key: "/MainMenu/Admin/FormManage",
