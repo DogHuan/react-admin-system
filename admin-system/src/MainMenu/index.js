@@ -25,7 +25,7 @@ const menuAdmin = {
       icon: <BarsOutlined />,
       component: UserManage,
     }, {
-      title: "云服务商管理",
+      title: "商品管理",
       key: "/MainMenu/Admin/CommondityManage",
       link: "/MainMenu/Admin/CommondityManage",
       icon: <BarsOutlined />,
