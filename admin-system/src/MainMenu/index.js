@@ -8,6 +8,7 @@ import CommondityManage from '../Admin/CommodityManage'
 import FormManage from '../Admin/FormManage/index'
 import ChartManage from '../Admin/ChartManage/index'
 import Recharts from '../Admin/RchartManage/Recharts'
+import SlideshowManage from '../Admin/SlideshowManage/index'
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 //一、对函数组件的初步使用以及数据的存储
@@ -52,11 +53,11 @@ const menuAdmin = {
       icon: <BarsOutlined />,
       component: Recharts,
     }, {
-      title: "SMTP设置",
-      key: "/main/admin/smtp",
-      link: "/main/admin/smtp",
+      title: "轮播图管理",
+      key: "/MainMenu/Admin/SlideshowManage",
+      link: "/MainMenu/Admin/SlideshowManage",
       icon: <BarsOutlined />,
-      component: UserManage,
+      component: SlideshowManage,
     }, {
       title: "SQS设置",
       key: "/main/admin/sqs",
