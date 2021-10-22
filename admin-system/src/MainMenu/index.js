@@ -9,6 +9,7 @@ import FormManage from '../Admin/FormManage/index'
 import ChartManage from '../Admin/ChartManage/index'
 import Recharts from '../Admin/RchartManage/Recharts'
 import SlideshowManage from '../Admin/SlideshowManage/index'
+import editor from '../Consumer/Email/index'
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 //一、对函数组件的初步使用以及数据的存储
@@ -65,6 +66,17 @@ const menuAdmin = {
       icon: <BarsOutlined />,
       component: UserManage,
     },
+  ]
+}
+const menuUser = {
+  title:"用户功能",
+  key:"user",
+  children:[{
+    title:"邮件设置",
+    key:"/MainMenu/Consumer/editor",
+    link:"/MainMenu/Consumer/editor",
+    component:editor,
+  }
   ]
 }
 const MainMenu = (props) => {
