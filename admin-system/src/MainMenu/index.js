@@ -7,6 +7,7 @@ import UserManage from '../Admin/UserManage/index'
 import CommondityManage from '../Admin/CommodityManage'
 import FormManage from '../Admin/FormManage/index'
 import ChartManage from '../Admin/ChartManage/index'
+import Recharts from '../Admin/RchartManage/Recharts'
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 //一、对函数组件的初步使用以及数据的存储
@@ -33,7 +34,7 @@ const menuAdmin = {
       icon: <BarsOutlined />,
       component: CommondityManage,
     }, {
-      title: "图表管理",
+      title: "图型管理",
       key: "/MainMenu/Admin/ChartManage",
       link: "/MainMenu/Admin/ChartManage",
       icon: <BarsOutlined />,
@@ -45,11 +46,11 @@ const menuAdmin = {
       icon: <BarsOutlined />,
       component: FormManage,
     }, {
-      title: "LDAP设置",
-      key: "/main/admin/ldap",
-      link: "/main/admin/ldap",
+      title: "图表管理",
+      key: "/MainMenu/Admin/RchartManage",
+      link: "/MainMenu/Admin/RchartManage",
       icon: <BarsOutlined />,
-      component: UserManage,
+      component: Recharts,
     }, {
       title: "SMTP设置",
       key: "/main/admin/smtp",

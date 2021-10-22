@@ -2,6 +2,8 @@ import React,{Component} from "react";
 import { Row, Col, Card } from 'antd';
 import EchartsArea from "./EchartsArea";
 import EchartsEffectScatter from './EchartsCity'
+import EchartsForce from './EchartsForce'
+import EchartsPie from "./EchartsPie";
 export default class ChartManage extends Component{
     constructor(props){
         super(props)
@@ -23,14 +25,14 @@ export default class ChartManage extends Component{
                 <div className="gutter-box">
                     <Card title="关系图" bordered={false}>
                         {/*<EchartsGraphnpm />*/}
-                      
+                        <EchartsForce />
                     </Card>
                 </div>
             </Col>
             <Col className="gutter-row" md={12}>
                 <div className="gutter-box">
                     <Card title="饼图" bordered={false}>
-                  
+                  <EchartsPie/>
                     </Card>
                 </div>
             </Col>
