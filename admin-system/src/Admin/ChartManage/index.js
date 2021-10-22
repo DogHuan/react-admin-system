@@ -1,5 +1,7 @@
 import React,{Component} from "react";
 import { Row, Col, Card } from 'antd';
+import EchartsArea from "./EchartsArea";
+import EchartsEffectScatter from './EchartsCity'
 export default class ChartManage extends Component{
     constructor(props){
         super(props)
@@ -11,7 +13,7 @@ export default class ChartManage extends Component{
             <Col className="gutter-row" md={24}>
                 <div className="gutter-box">
                     <Card title="区域图" bordered={false}>
-                      
+                      <EchartsArea/>
                     </Card>
                 </div>
             </Col>
@@ -37,7 +39,6 @@ export default class ChartManage extends Component{
             <Col className="gutter-row" md={24}>
                 <div className="gutter-box">
                     <Card title="散点图" bordered={false}>
-                      
                     </Card>
                 </div>
             </Col>
