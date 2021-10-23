@@ -9,7 +9,8 @@ import FormManage from '../Admin/FormManage/index'
 import ChartManage from '../Admin/ChartManage/index'
 import Recharts from '../Admin/RchartManage/Recharts'
 import SlideshowManage from '../Admin/SlideshowManage/index'
-import RichTextEditor from '../Consumer/index'
+import RichTextEditor from '../Consumer/RichTextManage/index'
+import AccountManage from '../Consumer/AccountManage/index'
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 //一、对函数组件的初步使用以及数据的存储
@@ -73,9 +74,14 @@ const menuUser = {
   key:"user",
   children:[{
     title:"邮件设置",
-    key:"/MainMenu/Consumer",
-    link:"/MainMenu/Consumer",
+    key:"/MainMenu/Consumer/RichTextManage",
+    link:"/MainMenu/Consumer/RichTextManage",
     component:RichTextEditor,
+  },{
+    title:'账号管理',
+    key:'/MainMenu/Consumer/AccountManage',
+    link:'/MainMenu/Consumer/AccountManage',
+    component:AccountManage,
   }
   ]
 }
