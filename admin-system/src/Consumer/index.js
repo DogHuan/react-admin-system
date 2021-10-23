@@ -9,7 +9,6 @@ export default class RichTextEditor extends Component{
         return(
             <div>
      <Form
-        name="control-ref"
         labelCol={{
           span: 3,
         }}
@@ -36,9 +35,8 @@ export default class RichTextEditor extends Component{
           <Input />
         </Form.Item>
         <Form.Item
-          name="body"
+          name="content"
           label="内容"
-          extra="插入字段field格式示例：{{.field}}。"
           rules={[
             {
               required: true,
