@@ -9,7 +9,7 @@ import FormManage from '../Admin/FormManage/index'
 import ChartManage from '../Admin/ChartManage/index'
 import Recharts from '../Admin/RchartManage/Recharts'
 import SlideshowManage from '../Admin/SlideshowManage/index'
-import editor from '../Consumer/Email/index'
+import RichTextEditor from '../Consumer/index'
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 //一、对函数组件的初步使用以及数据的存储
@@ -73,9 +73,9 @@ const menuUser = {
   key:"user",
   children:[{
     title:"邮件设置",
-    key:"/MainMenu/Consumer/editor",
-    link:"/MainMenu/Consumer/editor",
-    component:editor,
+    key:"/MainMenu/Consumer",
+    link:"/MainMenu/Consumer",
+    component:RichTextEditor,
   }
   ]
 }
@@ -83,7 +83,7 @@ const MainMenu = (props) => {
   let menuList = []
   const defaultSelectedKeys = ''
   const openKeys = menuList?.[0]?.children[0]
-  menuList.push(menuAdmin)
+  menuList.push(menuUser)
   const defaultRoute = menuList?.[0]?.children?.[0]?.link
   return (
     //二、整体使用layout布局大框架包裹网页的整个页面
