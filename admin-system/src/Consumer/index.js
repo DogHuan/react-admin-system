@@ -7,7 +7,6 @@ export default class RichTextEditor extends Component{
     }
     render(){
         return(
-            <div>
      <Form
         labelCol={{
           span: 3,
@@ -53,7 +52,6 @@ export default class RichTextEditor extends Component{
         >
         </Form.Item>
       </Form>
-            </div>
         )
     }
 }
