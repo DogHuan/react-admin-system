@@ -16,7 +16,7 @@ export default class AccountManage extends Component{
     }
 
     handleChange =()=>{
-        
+
     }
 
     handleAdd =()=>{
@@ -64,12 +64,13 @@ export default class AccountManage extends Component{
             title:"用户名",
             dataIndex:"username",
             key:"username",
-            render:(_,record)=>{
+            render:(_,record) => {
                 const editable = this.isEditing(record);
                 return editable ? (
                   <Input
                     style={{
-                    margin: "-5px"
+                    margin: "-5px",
+                    width:"100%"
                     }}
                     value={record.username}
                     onChange={(e) => { this.handleChange(e) }}
@@ -83,10 +84,33 @@ export default class AccountManage extends Component{
             title:"账号",
             dataIndex:"account",
             key:"account",
+            render:(_,record) => {
+                const editable = this.isEditing(record)
+                return editable ? (
+                    <Input 
+                    style={{margin:-5,width:"100%"}}
+                    value={record.account}
+                    onChange={(e) =>{this.handleChange(e.target.value)}}
+                    ></Input>
+                ):(
+                    <span>{record.account}</span>
+                )
+            }
           },{
             title:"权限",
             dataIndex:"permission",
             key:"permission",
+            render:(_,record) => {
+                const editable = this.isEditing(record)
+                return editable ? (
+                    <Input 
+                    style={{margin:-5,width:"100%"}}
+                    value={record.permission}
+                    onChange={(e)=>this.handleChange(e)}></Input>
+                ):(
+                    <span>{record.permission}</span>
+                )
+            }
           },{
             title:"操作",
             dataIndex:"operation",
