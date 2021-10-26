@@ -11,6 +11,7 @@ import Recharts from '../Admin/RchartManage/Recharts'
 import SlideshowManage from '../Admin/SlideshowManage/index'
 import RichTextEditor from '../Consumer/RichTextManage/index'
 import AccountManage from '../Consumer/AccountManage/index'
+import Drags from '../Consumer/DragManage/Draggable'
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 //一、对函数组件的初步使用以及数据的存储
@@ -82,6 +83,11 @@ const menuUser = {
     key:'/MainMenu/Consumer/AccountManage',
     link:'/MainMenu/Consumer/AccountManage',
     component:AccountManage,
+  },{
+    title:'拖拽功能',
+    key:'/MainMenu/Consumer/DragManage',
+    link:'/MainMenu/Consumer/DragManage',
+    component:Drags,
   }
   ]
 }

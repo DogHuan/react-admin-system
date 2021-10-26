@@ -1,7 +1,6 @@
 
 import React from 'react';
 import { Row, Col, Card } from 'antd';
-import BreadcrumbCustom from '../widget/BreadcrumbCustom';
 import Draggable from 'react-draggable';
 
 class Drags extends React.Component {
@@ -38,7 +37,6 @@ class Drags extends React.Component {
         const { deltaPosition } = this.state;
         return (
             <div className="gutter-example button-demo">
-                <BreadcrumbCustom breads={['UI', '拖拽']} />
                 <Row gutter={16}>
                     <Col className="gutter-row" md={6}>
                         <div className="gutter-box">
