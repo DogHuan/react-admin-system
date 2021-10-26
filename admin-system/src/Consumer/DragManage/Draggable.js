@@ -65,7 +65,7 @@ class Drags extends React.Component {
                             </Draggable>
                         </div>
                     </Col>
-                    <Col className="gutter-row" md={6}>
+                    {/* <Col className="gutter-row" md={6}>
                         <div className="gutter-box">
                             <Draggable onDrag={this.handleDrag} {...dragHandlers}>
                                 <Card bordered={false} className={'dragDemo'}>
@@ -77,7 +77,7 @@ class Drags extends React.Component {
                                 </Card>
                             </Draggable>
                         </div>
-                    </Col>
+                    </Col> */}
                     <Col className="gutter-row" md={6}>
                         <div className="gutter-box">
                             <Draggable handle="strong" {...dragHandlers}>
