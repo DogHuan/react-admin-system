@@ -20,6 +20,7 @@ const { SubMenu } = Menu;
 // 这里我们借鉴使用对象去存储数据，每个对象以角色去命名，设置key，title等属性，代表一级目录（父菜单）。
 // 同时每个对象内部嵌套一个childern孩子数组来存储二级目录（子菜单），设置key，title等属性，component来作为
 // 渲染不同页面时的入口，而此刻link作为不同页面渲染时出口存储字符串。
+//管理员功能的子菜单以及配置
 const menuAdmin = {
   title: "管理员功能",
   key: "admin",
@@ -70,6 +71,8 @@ const menuAdmin = {
     },
   ]
 }
+
+//普通用户功能对象，后续可以依次添加对应的角色功能模块
 const menuUser = {
   title:"用户功能",
   key:"user",
@@ -89,7 +92,7 @@ const menuUser = {
     link:'/MainMenu/Consumer/DragManage',
     component:Drags,
   }
-  ]
+ ]
 }
 const MainMenu = (props) => {
   let menuList = []
