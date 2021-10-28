@@ -8,6 +8,9 @@ import mainMenu from "../MainMenu";
 export default class Login extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      checkBox:''
+    }
   }
   
   //一、使用fetch异步向后台请求数据的方法以及步骤
@@ -17,7 +20,7 @@ export default class Login extends Component {
   handleSumit = () => {
     //2、抓取登录表单输入的值，使用formData数组存储参数
     const formData = this.formRef.current.getFieldsValue([
-      'username', 'password',
+      'username', 'password','remember'
     ])
     console.log("value", formData)
     //3、fetch()异步请求方法的步骤
@@ -46,7 +49,20 @@ export default class Login extends Component {
         console.log("登录成功")
   // 二、我们对请求方法判断连接成功后，我们就需要考虑角色的匹配和信息的存储即引入cookie。
       //1、我们需要对输入的用户名和密码所对应角色进行判断，并且使用cookie去存储这些信息。
-        const cookies = cookie.loadAll()
+      // 1.1、加载名为cookieName的cookie信息,cookie.load(cookieName)
+        cookie.load()
+        //1.2、判断是否勾选了记住密码选项，如果是则cooike保存密码，用户名，角色等信息
+        if(formData.remeber === true){
+          cookie.save([formData.username,formData.password,result?.data?.role])
+          console.log("cookie1",cookie);
+        }
+        //如果未勾选，则清除密码，保存用户名和其他信息
+        else{
+          cookie.remove(formData.password)
+          cookie.save([formData.username,result?.data?.role])
+          console.log("cookie2",cookie);
+        }
+        this.props.history.replace("/mainMenu")
       }
       //4.4、对错误异常的处理
       else {
@@ -56,6 +72,13 @@ export default class Login extends Component {
       message.error("登录失败" + error)
     })
   }
+
+  // handleChangePassword =(e)=>{
+  //   this.setState = {
+  //     checkBox:e.target.checked
+  //   }
+  // }
+
   render() {
     return (
       <div className="login">
@@ -86,10 +109,13 @@ export default class Login extends Component {
                 prefix={<LockOutlined />}
                 type="password"
                 placeholder="请输入密码"
+                onChange={this.handleChange}
               />
             </Form.Item>
             <Form.Item name="remember" valuePropName="checked" noStyle>
-              <Checkbox>记住密码</Checkbox>
+              <Checkbox 
+                onChange={this.handleChangePassword} >
+                记住密码</Checkbox>
             </Form.Item>
             <Form.Item style={{
               paddingTop: 20
