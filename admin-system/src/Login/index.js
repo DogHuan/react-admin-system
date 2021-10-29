@@ -123,6 +123,7 @@ export default class Login extends Component {
               </Button>
             </Form.Item>
           </Form>
+          <Link to="/mainMenu">用户管理</Link>
         </div>
       </div>
     )

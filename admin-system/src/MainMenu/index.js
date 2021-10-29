@@ -129,6 +129,12 @@ const MainMenu = (props) => {
   //4.3、设置defaultRoute初始选中的菜单项路由，这里取menuList列表第一个孩子节点的第一个link值
   const defaultRoute = menuList?.[0]?.children?.[0]?.link
 
+  //测试使用数据
+  let CmenuList = []
+  const CdefaultSelectedKeys = ''
+  const CopenKeys = CmenuList?.[0]?.children[0]
+  CmenuList.push(menuAdmin,menuUser)
+  const CdefaultRoute = CmenuList?.[0]?.children?.[0]?.link
   return (
     //三、整体使用layout布局大框架包裹网页的整个页面
     <Layout style={{ minHeight: '100vh' }}>
@@ -151,14 +157,14 @@ const MainMenu = (props) => {
           <Menu
             theme="dark"
             mode="inline"
-            defaultSelectedKeys={defaultSelectedKeys}
-            openKeys={openKeys} 
+            defaultSelectedKeys={CdefaultSelectedKeys}
+            openKeys={CopenKeys} 
             onChange={handleChange}>
             {
               // 2.2、此刻遍历menuList里item对象属性,即管理员或用户的数据值，
               //一级目录SubMenu的title和key
-              menuList?.map(item => console.log("item", item)),
-              menuList?.map((item) => (
+              CmenuList?.map(item => console.log("item", item)),
+              CmenuList?.map((item) => (
                 <SubMenu
                   key={item.key}
                   icon={item.icon}
@@ -185,7 +191,7 @@ const MainMenu = (props) => {
             <Switch>
             {/* 3.1、Content渲染不同的菜单选项数据需要根据Route不同的路由入口来配置path，component路径 */}
               {
-                menuList?.map(item =>
+                CmenuList?.map(item =>
                   item?.children?.map(subItem =>
                     <Route
                       path={subItem.link}
@@ -194,7 +200,7 @@ const MainMenu = (props) => {
                   ))
               }
               {/* 3.2、进入系统内部默认路由出口为mainAdmin */}
-              <Redirect to={defaultRoute || '/mainAdmin'} />
+              <Redirect to={CdefaultRoute || '/mainAdmin'} />
             </Switch>
           </Content>
           <Footer className="layout-footer" style={{margin:"auto"}}>Copyright © 2021</Footer>
