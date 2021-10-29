@@ -94,14 +94,43 @@ const menuUser = {
   }
  ]
 }
+
+//二、使用函数组件，列出菜单变化的事件以及动态识别menu的菜单选项。
 const MainMenu = (props) => {
+  //1、defaultOpenKeys为初始展开的 SubMenu 菜单项 key 数组,这里使用location对象属性pathname，
+  //split分割出ip地址中SubMenu 菜单项 key 数组赋值给defaultOpenKeys。
+  const defaultOpenKeys = [window.location.pathname.split("/")?.[2]]
+  //2、openKeys当前展开的 SubMenu 菜单项 key 数组，把defaultOpenKeys赋值给openkey,菜单的展开随之改变。
+  //要使函数组件具有状态管理，可以useState() Hook,这样展开菜单就可以动态取值了。
+  const [openKeys, setOpenKeys] = useState(defaultOpenKeys)
+
+  //3、然后我们开始给菜单Menu添加回调函数，监听事件的变化。即这里对打开和关闭,为openKeys设置setOpenKeys。
+  const handleChange =(keys)=>{
+    const lastOpenKeys = keys.find(key =>openKeys.indexOf(key)===-1)
+    console.log("key",keys);
+    for(var i=0; i<menuList.length; i++){
+      if(menuList[i].key===lastOpenKeys){
+        return setOpenKeys = (lastOpenKeys ? [lastOpenKeys] : [])
+      }
+    }
+    setOpenKeys = [keys];
+  }
+
+  //设置role接收全局变量role角色，以及menuList存储菜单列表项
+  const role = window.role
   let menuList = []
-  const defaultSelectedKeys = ''
-  const openKeys = menuList?.[0]?.children[0]
-  menuList.push(menuUser)
+  //4、我们已经取到了角色，开始为不同角色设置判断条件去判断其拥有的功能即菜单项。
+  //4.1、假设以数字1 or (admin)代表管理员, 数字2 or (normalUser)代表普通用户
+  //角色判断之后更新menuList数组存储菜单列表
+  role?.[0] ==='1' && menuList.push(menuAdmin,menuUser)
+  role?.[1] === '2' && menuList.push(menuUser)
+  //4.2、设置defaultSelectedKeys初始选中的菜单项key数组，这里取ip路径
+  const defaultSelectedKeys = [window.location.pathname]
+  //4.3、设置defaultRoute初始选中的菜单项路由，这里取menuList列表第一个孩子节点的第一个link值
   const defaultRoute = menuList?.[0]?.children?.[0]?.link
+
   return (
-    //二、整体使用layout布局大框架包裹网页的整个页面
+    //三、整体使用layout布局大框架包裹网页的整个页面
     <Layout style={{ minHeight: '100vh' }}>
       {/* 1、头部导航栏的设置和logo图标的添加，后期可以在这里维护退出登录和个人信息修改 */}
       <Header className="header">
@@ -109,7 +138,7 @@ const MainMenu = (props) => {
         <div className="left-nav-header header-logo">
           <Link to="/mainMenu">
             <img className="logo-img" src={logo} alt=""
-              style={{ width: 40, height: 40 }} />
+              style={{ width: 40, height: 40 , borderRadius:"50%"}} />
           </Link>
         </div>
       </Header>
@@ -123,8 +152,11 @@ const MainMenu = (props) => {
             theme="dark"
             mode="inline"
             defaultSelectedKeys={defaultSelectedKeys}
-            openKeys={openKeys} >
+            openKeys={openKeys} 
+            onChange={handleChange}>
             {
+              // 2.2、此刻遍历menuList里item对象属性,即管理员或用户的数据值，
+              //一级目录SubMenu的title和key
               menuList?.map(item => console.log("item", item)),
               menuList?.map((item) => (
                 <SubMenu
@@ -132,7 +164,8 @@ const MainMenu = (props) => {
                   icon={item.icon}
                   title={item.title}
                 >
-          {/*2.2、 Menu.item菜单子列表中设置key，title以及路由Link的出口*/}
+                  {/*2.3、 遍历父级菜单选项中的childern数组，为Menu.item菜单子列表中设置key，
+                  title以及路由Link的出口*/}
                   {
                     item?.children?.map(e => console.log("e.title", e.title)),
                     item?.children?.map((e) => (
