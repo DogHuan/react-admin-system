@@ -8,9 +8,6 @@ import mainMenu from "../MainMenu";
 export default class Login extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      checkBox:''
-    }
   }
   
   //一、使用fetch异步向后台请求数据的方法以及步骤
@@ -53,13 +50,20 @@ export default class Login extends Component {
         cookie.load()
         //1.2、判断是否勾选了记住密码选项，如果是则cooike保存密码，用户名，角色等信息
         if(formData.remeber === true){
-          cookie.save([formData.username,formData.password,result?.data?.role])
+          cookie.save({
+            username:formData.username,
+            password:formData.password,
+            role:result?.data?.role
+          })
           console.log("cookie1",cookie);
         }
         //如果未勾选，则清除密码，保存用户名和其他信息
         else{
-          cookie.remove(formData.password)
-          cookie.save([formData.username,result?.data?.role])
+          cookie.remove(['password'])
+          cookie.save({
+            username:formData.username,
+            role:result?.data?.role
+          })
           console.log("cookie2",cookie);
         }
         this.props.history.replace("/mainMenu")
@@ -72,12 +76,6 @@ export default class Login extends Component {
       message.error("登录失败" + error)
     })
   }
-
-  // handleChangePassword =(e)=>{
-  //   this.setState = {
-  //     checkBox:e.target.checked
-  //   }
-  // }
 
   render() {
     return (
@@ -125,7 +123,6 @@ export default class Login extends Component {
               </Button>
             </Form.Item>
           </Form>
-          <Link to='/MainMenu'>用户管理</Link>
         </div>
       </div>
     )
