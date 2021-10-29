@@ -4,10 +4,26 @@ export default class UserManage extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      editingKey: ''
+      editingKey: '',
+      currentRecord:undefined
     }
   }
   isEditing = (record) => record.id === this.state.editingKey;
+
+  handleEdit=(record)=> {
+    this.setState({
+      currentRecord:record,
+      editingKey:record.id
+    })
+  }
+
+  handleCancel=()=>{
+    // this.fetch()
+    this.setState({
+      editingKey:''
+    })
+  }
+
   render() {
     const columns = [
       {
@@ -25,7 +41,10 @@ export default class UserManage extends Component {
           return editable ? (
             <Input
             value={record.user}
-            onChange={(e)=>this.handleChange("user",e)}>
+            onChange={(e)=>this.handleChange("user",e)}
+            style={{
+              margin:-5
+            }}>
             </Input>
           ):(
             <span>
@@ -44,6 +63,9 @@ export default class UserManage extends Component {
             <Input
             value={record.email}
             onChange={(e)=>this.handleChange("email",e)}
+            style={{
+              margin:-5
+            }}
             >
             </Input>
           ):(
@@ -63,6 +85,9 @@ export default class UserManage extends Component {
             <Input
             value={record.role}
             onChange={(e)=>this.handleChange("role",e)}
+            style={{
+              margin:-5
+            }}
             >
             </Input>
           ):(
