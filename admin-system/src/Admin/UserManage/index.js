@@ -4,17 +4,37 @@ export default class UserManage extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      data:[],
       editingKey: '',
       currentRecord:undefined
     }
   }
+
   isEditing = (record) => record.id === this.state.editingKey;
+
+  handleChange=(key,e)=>{
+    const index = this.state.data?.findIndex((item) => {
+      return item?.id === this.state.editingKey
+    })
+    let newData = [...this.state.data]
+    newData.splice(index, 1, {
+      ...this.state.data[index],
+      [key]: e.target.value
+    })
+    this.setState({
+      data: newData,
+    })
+  }
 
   handleEdit=(record)=> {
     this.setState({
       currentRecord:record,
       editingKey:record.id
     })
+  }
+
+  handleSave=(id)=>{
+
   }
 
   handleCancel=()=>{
@@ -24,13 +44,16 @@ export default class UserManage extends Component {
     })
   }
 
+  handleDelete=(id)=>{
+
+  }
+
   render() {
     const columns = [
       {
         title: '序号',
         dataIndex: 'index',
         key: 'index',
-        render: (_, record, index) => console.log("record", record, "index", index)
       },
       {
         title: '用户名',
