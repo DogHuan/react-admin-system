@@ -18,16 +18,32 @@ export default class UserManage extends Component {
   //当单元格变为可编辑状态时，监听input内部的回调函数的变化，因此我们需要一个新的数组来存储变化的数据，
   //然后更新data的新值。
 
-  handleAdd =()=>{
+  fetchData = () => {
+    fetch('url'
+    ).then(result =>result.json(
+    )).then(result =>{
+      this.setState({
+        data:result.data
+      })
+    }).catch(function (error) {
+      message.error("取值失败"+error)
+    })
+  }
+
+  componentDidMount(){
+    this.fetchData()
+  }
+
+  handleAdd = () => {
     const newData = {
-      id:'',
-      user:'',
-      email:'',
-      role:''
+      id: '',
+      user: '',
+      email: '',
+      role: ''
     }
     const data = this.state.data
     this.setState({
-      data:data ? [newData, ...data] : [newData],
+      data: data ? [newData, ...data] : [newData],
     })
   }
 
@@ -80,10 +96,10 @@ export default class UserManage extends Component {
           })
           this.fetch()
         } else {
-          message.error("操作失败", result.msg)
+          message.error("操作失败" + result.msg)
         }
       }).catch(function (error) {
-        message.error("操作失败", error)
+        message.error("操作失败" + error)
       })
     } else {
       const index = this.state.data?.findeIndex((item) => {
@@ -106,10 +122,10 @@ export default class UserManage extends Component {
           })
           this.fetch()
         } else {
-          message.error("操作失败", result.msg)
+          message.error("操作失败" + result.msg)
         }
       }).catch(function (error) {
-        message.error("操作失败", error)
+        message.error("操作失败" + error)
       })
     }
   }
@@ -139,10 +155,10 @@ export default class UserManage extends Component {
           })
           this.fetch()
         } else {
-          message.error("操作失败", result.msg)
+          message.error("操作失败" + result.msg)
         }
       }).catch(function (error) {
-        message.error("操作失败", error)
+        message.error("操作失败" + error)
       })
     }
   }
@@ -319,7 +335,10 @@ export default class UserManage extends Component {
       <div className='container'>
         <div className='button-container'>
           <Button type="primary"
-          onClick={this.handleAdd}>增加新用户</Button>
+            onClick={this.handleAdd}
+          >
+            增加新用户
+          </Button>
         </div>
         <Table columns={columns} dataSource={data} />
       </div>
