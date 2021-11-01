@@ -62,13 +62,7 @@ const menuAdmin = {
       link: "/MainMenu/Admin/SlideshowManage",
       icon: <BarsOutlined />,
       component: SlideshowManage,
-    }, {
-      title: "SQS设置",
-      key: "/main/admin/sqs",
-      link: "/main/admin/sqs",
-      icon: <BarsOutlined />,
-      component: UserManage,
-    },
+    }
   ]
 }
 
