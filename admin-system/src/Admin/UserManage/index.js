@@ -175,6 +175,7 @@ export default class UserManage extends Component {
 
   render() {
 
+    const dataSource = this.state.data && [...this.state.data]
     //1、设置columns内部对象属性，注意render属性方法的两种使用方式。
     const columns = [
       {
@@ -336,7 +337,9 @@ export default class UserManage extends Component {
             增加新用户
           </Button>
         </div>
-        <Table columns={columns} dataSource={this.state.data} />
+        <Table 
+        columns={columns}
+        dataSource={dataSource} />
       </div>
     )
   }
