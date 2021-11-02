@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Table, Tag, Space, Input, Typography, Popconfirm } from 'antd';
+import { Table, Tag, Space, Input, Typography, Popconfirm, message } from 'antd';
 export default class CommondityManage extends Component {
     constructor(props) {
         super(props)
@@ -40,8 +40,26 @@ export default class CommondityManage extends Component {
             })
           }).then(result => result.json(
           )).then(result =>{
-            
+            if(result.code===200){
+              message.success("添加成功")
+              this.setState =({
+                editingKeys:''
+              })
+              this.fetchData()
+            } else{
+              message.error("添加错误"+result.msg)
+            }
+          }).catch(function(error){
+            message.error("添加失败"+error)
           })
+      } else{
+        const index = this.state.data?.indexOf(item =>{
+          return item?.id === this.state.editingKeys
+        })
+        const data = this.state.data[index]
+        fetch('url',{
+          method:"PUT",
+        })
       }
     }
 
