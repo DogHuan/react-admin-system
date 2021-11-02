@@ -9,17 +9,16 @@ export default class Login extends Component {
   constructor(props) {
     super(props)
   }
-  
-  //一、使用fetch异步向后台请求数据的方法以及步骤
-  //1、此处使用的是表单的非受控组件，React.createRef()
+
+  //一、使用fetch异步向后台请求数据的方法和步骤。
+  //1、此处使用的是表单的非受控组件，React.createRef()，创建formRef对象绑定到form表单
   formRef = React.createRef();
 
   handleSumit = () => {
-    //2、抓取登录表单输入的值，使用formData数组存储参数
+    //2、抓取登录表单输入的值，使用formData数组存储getFieldsValue获取到对应字段名的值
     const formData = this.formRef.current.getFieldsValue([
-      'username', 'password','remember'
+      'username', 'password', 'remember'
     ])
-    console.log("value", formData)
     //3、fetch()异步请求方法的步骤
     //3.1、url请求地址 3.2、method请求方法：POST, GET, OPTIONS, PUT, DELETE, UPDATE
     //3.3、header请求头(请求头格式需要分情况设置) 3.4、body请求体(这里使用JSON格式发送数据)
@@ -44,28 +43,31 @@ export default class Login extends Component {
       //4.3、判断请求结果的code值
       if (result.code >= 200 || result.code < 300) {
         console.log("登录成功")
-  // 二、我们对请求方法判断连接成功后，我们就需要考虑角色的匹配和信息的存储即引入cookie。
-      //1、我们需要对输入的用户名和密码所对应角色进行判断，并且使用cookie去存储这些信息。
-      // 1.1、加载名为cookieName的cookie信息,cookie.load(cookieName)
+
+        // 二、思考：API连接成功后，要保持页面刷新后仍保留原本信息，而不是返回登录页面。
+        //1、保留原先登录信息即cookie本地存储的使用。js本地存储有cookie和store。
+        // 1.1、加载名为cookieName的cookie信息,cookie.load(cookieName)
         cookie.load()
-        //1.2、判断是否勾选了记住密码选项，如果是则cooike保存密码，用户名，角色等信息
-        if(formData.remeber === true){
+        //1.2、判断是否勾选了记住密码选项，如果是则cooike保存密码，用户名，角色,token等信息
+        if (formData.remeber === true) {
           cookie.save({
-            username:formData.username,
-            password:formData.password,
-            role:result?.data?.role
+            username: formData.username,
+            password: formData.password,
+            role: result?.data?.role,
+            token: result?.data?.token
           })
-          console.log("cookie1",cookie);
         }
         //如果未勾选，则清除密码，保存用户名和其他信息
-        else{
+        else {
           cookie.remove(['password'])
           cookie.save({
-            username:formData.username,
-            role:result?.data?.role
+            username: formData.username,
+            role: result?.data?.role,
+            token:result?.data?.token
           })
-          console.log("cookie2",cookie);
         }
+        // 当一个路由点击多次，将会出现警告，使用replace，这样会替换历史记录中上一次相同路由记录，
+        // 而push会添加新的相同记录进去，hash路由会有这个问题，Browser形式的则不会
         this.props.history.replace("/mainMenu")
       }
       //4.4、对错误异常的处理
@@ -77,13 +79,25 @@ export default class Login extends Component {
     })
   }
 
+  //为密码加密
+  handleChangePassword =(e)=>{
+    console.log("密码",e);
+  }
+
   render() {
+    //给form表单添加表单验证，使用validatemessages属性
+    const validateMessages = {
+    
+    }
+
     return (
       <div className="login">
         <div className="loginForm">
-          <Form className="login-form" ref={this.formRef}>
+          {/* 给Form绑定ref属性，这样可以保证form表单变化在任何时间总是拿到正确的实例。*/}
+          <Form className="login-form" ref={this.formRef} validateMessages={validateMessages}>
             <Form.Item
               name="username"
+              //约束规则，rules
               rules={[
                 {
                   required: true,
@@ -111,9 +125,9 @@ export default class Login extends Component {
               />
             </Form.Item>
             <Form.Item name="remember" valuePropName="checked" noStyle>
-              <Checkbox 
-                onChange={this.handleChangePassword} >
-                记住密码</Checkbox>
+              <Checkbox onChange={this.handleChangePassword} >
+                记住密码
+                </Checkbox>
             </Form.Item>
             <Form.Item style={{
               paddingTop: 20
@@ -124,6 +138,7 @@ export default class Login extends Component {
             </Form.Item>
           </Form>
         </div>
+        <Link to="/mainMenu">用户</Link>
       </div>
     )
   }
