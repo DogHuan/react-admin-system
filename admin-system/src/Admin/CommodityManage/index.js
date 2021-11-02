@@ -1,83 +1,149 @@
 import React, { Component } from "react";
-import { Table, Tag, Space } from 'antd';
+import { Table, Tag, Space, Input, Typography, Popconfirm } from 'antd';
 export default class CommondityManage extends Component {
     constructor(props) {
         super(props)
+        this.state = {
+          data:[],
+          currentRecord:'',
+          editingKeys:''
+        }
     }
+
+    isEditing = (record) => record.id === this.state.editingKeys
+
+    handleEdit = (record) => {
+      this.setState = ({
+        currentRecord:record,
+        editingKeys:record.id
+      })
+    }
+
+    handleSave = (id) => {
+      if(!id || id===''){
+        // const index = this.state.data?.findIndex((item) => {
+        //   return item?.id === this.state.editingKeys
+        // })
+        const index = this.state.data?.findIndex(item => 
+          item?.id === this.state.editingKeys
+          )
+          const data = this.state.data[index]
+          fetch("url",{
+            method:"POST",
+            header:new Headers ({
+              "Content-Type": "application/json;charset=UTF-8",
+            }),
+            body:JSON.stringify({
+              id:data.id,
+              commodityType:data.commodityType,
+              commodityName:data.commodityName
+            })
+          }).then(result => result.json(
+          )).then(result =>{
+            
+          })
+      }
+    }
+
     render() {
+
     const columns = [
     {
       title: '序号',
       dataIndex: 'index',
       key: 'index',
-      render: text => <a>{text}</a>,
     },
     {
       title: '商品类别',
       dataIndex: 'commodityType',
       key: 'commodityType',
+      render: (_,record) =>{
+        const editable = this.isEditing(record)
+        return editable ? (
+          <Input 
+          style={{margin:-5}}
+          value={record.commodityType}
+          onChange={(e)=>this.handleChange("commodityType",e)}
+          ></Input>
+        ):(
+          <span>{record.commodityType}</span>
+        )
+      }
     },
     {
       title: '商品名称',
       dataIndex: 'commodityName',
       key: 'commodityName',
-    },
-    {
-      title: '标签',
-      key: 'tags',
-      dataIndex: 'tags',
-      render: tags => (
-      <>
-      {tags.map(tag => {
-      let color = tag.length > 5 ? 'geekblue' : 'green';
-      if (tag === 'loser') {
-          color = 'volcano';
+      render:(_,record) =>{
+        const editable = this.isEditing(record)
+        return editable ? (
+          <Input
+          value={record.commodityName}
+          style={{margin:-5}}
+          onChange={(e)=>this.handleChange("commodityName",e)}
+          >
+          </Input>
+        ):(
+          <span>{record.commodityName}</span>
+        )
       }
-      return (
-      <Tag color={color} key={tag}>
-          {tag.toUpperCase()}
-      </Tag>
-      );
-      })}
-      </>
-    ),
     },
     {
       title: '操作',
       key: 'operation',
-      render: (text, record) => (
-      <Space size="middle">
-          <a>Invite {record.name}</a>
-          <a>Delete</a>
-      </Space>
-      ),
-    },
+      render: (_, record) => { 
+        const editable = this.isEditing(record)
+        return  (
+        <div>
+          {
+            editable ? (
+              <span>
+              <a
+              href="javascript:;"
+              onClick={()=>this.handleSave(record.id)}
+              style={{marginRight:10}}
+              >
+                保存
+              </a>
+              <a
+              href="javascript:;"
+              onClick={()=>this.handleCancel}
+              style={{marginRight:10}}
+              >
+                取消
+              </a>
+              </span>
+            ):(
+              <Typography.Link
+              disabled={this.state.editingKeys!==''}
+              onClick={()=>this.handleEdit(record)}
+              style={{marginRight:10}}
+              >
+                编辑</Typography.Link>
+            )
+          }
+          <Popconfirm
+          title="确认删除?"
+          okText="确认"
+          cancelText="取消"
+          onConfirm={()=>this.handleDelete(record.id)}
+          >
+            <span
+            style={{color:"red"}}>
+            删除
+            </span>
+            </Popconfirm>
+        </div>
+        )
+      }
+    }
     ];
-    const data = [
-        {
-          key: '1',
-          name: 'John Brown',
-          age: 32,
-          address: 'New York No. 1 Lake Park',
-          tags: ['nice', 'developer'],
-        },
-        {
-          key: '2',
-          name: 'Jim Green',
-          age: 42,
-          address: 'London No. 1 Lake Park',
-          tags: ['loser'],
-        },
-        {
-          key: '3',
-          name: 'Joe Black',
-          age: 32,
-          address: 'Sidney No. 1 Lake Park',
-          tags: ['cool', 'teacher'],
-        },
-      ];
     return (
-        <Table columns={columns} dataSource={data}></Table>
+        <Table
+         columns={columns}
+         dataSource={this.state.data}
+         >
+         </Table>
     )
 }
 }

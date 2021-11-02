@@ -158,7 +158,7 @@ export default class UserManage extends Component {
         // })
       }).then(result => result.json(
       )).then(result => {
-        if (result.code === '200') {
+        if (result.code === 200) {
           message.success("操作成功")
           this.setState({
             editingKey: ''
