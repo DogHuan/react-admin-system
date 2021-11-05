@@ -6,9 +6,6 @@ import { UserOutlined, AppstoreOutlined, BarsOutlined } from "@ant-design/icons"
 import UserManage from '../Admin/UserManage/index'
 import CommondityManage from '../Admin/CommodityManage'
 import FormManage from '../Admin/FormManage/index'
-import ChartManage from '../Admin/ChartManage/index'
-import Recharts from '../Admin/RchartManage/Recharts'
-import SlideshowManage from '../Admin/SlideshowManage/index'
 import RichTextEditor from '../Consumer/RichTextManage/index'
 import AccountManage from '../Consumer/AccountManage/index'
 import Drags from '../Consumer/DragManage/Draggable'
@@ -43,25 +40,21 @@ const menuAdmin = {
       key: "/MainMenu/Admin/ChartManage",
       link: "/MainMenu/Admin/ChartManage",
       icon: <BarsOutlined />,
-      component: ChartManage,
     }, {
       title: "表单管理",
       key: "/MainMenu/Admin/FormManage",
       link: "/MainMenu/Admin/FormManage",
       icon: <BarsOutlined />,
-      component: FormManage,
     }, {
       title: "图表管理",
       key: "/MainMenu/Admin/RchartManage",
       link: "/MainMenu/Admin/RchartManage",
       icon: <BarsOutlined />,
-      component: Recharts,
     }, {
       title: "轮播图管理",
       key: "/MainMenu/Admin/SlideshowManage",
       link: "/MainMenu/Admin/SlideshowManage",
       icon: <BarsOutlined />,
-      component: SlideshowManage,
     }
   ]
 }
