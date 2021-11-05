@@ -29,6 +29,7 @@ export default class FormManage extends Component {
   handleReset=()=>{
     this.formRef.current.resetFields()
   }
+  
   render() {
     return (
       <Form style={{ marginTop: 20 }} ref={this.formRef}

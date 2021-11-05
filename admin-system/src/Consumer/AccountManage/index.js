@@ -11,12 +11,23 @@ export default class AccountManage extends Component{
 
     handleEdit =(record)=>{
         this.setState({
-            editingKey:record.id
+          currentRecord:record,
+          editingKey:record.id
         })
     }
 
-    handleChange =()=>{
-
+    handleChange =(key,e)=>{
+      const index = this.state.data?.findIndex(item =>
+        item?.id === this.state.editingKey
+        )
+        let newData = [...this.state.data]
+        newData.splice(index,1,{
+          ...this.state.data[index],
+          [key]:e.target.value
+        })
+        this.setState =({
+          data:newData,
+        })
     }
 
     handleAdd =()=>{
@@ -175,7 +186,7 @@ export default class AccountManage extends Component{
         ]
         return(
             <div>
-            <Button onClick={this.handleAdd}></Button>
+            <Button onClick={this.handleAdd}>添加新账号</Button>
             <Table
               bordered
               dataSource={data}
