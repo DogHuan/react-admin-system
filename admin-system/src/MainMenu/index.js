@@ -9,6 +9,7 @@ import FormManage from '../Admin/FormManage/index'
 import RichTextEditor from '../Consumer/RichTextManage/index'
 import AccountManage from '../Consumer/AccountManage/index'
 import Drags from '../Consumer/DragManage/Draggable'
+import Ldap from '../Admin/LdapSet';
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 //一、对函数组件的初步使用以及数据的存储
@@ -36,15 +37,17 @@ const menuAdmin = {
       icon: <BarsOutlined />,
       component: CommondityManage,
     }, {
-      title: "图型管理",
-      key: "/MainMenu/Admin/ChartManage",
-      link: "/MainMenu/Admin/ChartManage",
+      title: "LDAP设置",
+      key: "/MainMenu/Admin/LdapSet",
+      link: "/MainMenu/Admin/LdapSet",
       icon: <BarsOutlined />,
+      component: Ldap,
     }, {
       title: "表单管理",
       key: "/MainMenu/Admin/FormManage",
       link: "/MainMenu/Admin/FormManage",
       icon: <BarsOutlined />,
+      component: FormManage,
     }, {
       title: "图表管理",
       key: "/MainMenu/Admin/RchartManage",
