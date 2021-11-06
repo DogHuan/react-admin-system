@@ -232,7 +232,10 @@ export default class Cloud extends Component{
         return (
             <div>
                 <Button
-                onClick={this.handleAdd}></Button>
+                onClick={this.handleAdd}
+                >
+                    新增项目
+                </Button>
                 <Table
                 columns={columns}
                 data={this.state.data}
