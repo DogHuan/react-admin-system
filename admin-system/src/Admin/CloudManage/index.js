@@ -18,6 +18,18 @@ export default class Cloud extends Component{
         })
     }
 
+    handleAdd =()=>{
+        let newData ={
+            id:'',
+            cloud:'',
+            content:''
+        }
+        const data =this.state.data
+        this.setState =({
+            data: data ? [newData,...data] : [newData]
+        })
+    }
+
     handleChange = (key,e) =>{
         const index = this.state.data?.findIndex((item) =>{
             return item?.id === this.state.editingKeys
@@ -219,6 +231,8 @@ export default class Cloud extends Component{
         ]
         return (
             <div>
+                <Button
+                onClick={this.handleAdd}></Button>
                 <Table
                 columns={columns}
                 data={this.state.data}
