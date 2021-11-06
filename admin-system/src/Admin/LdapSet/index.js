@@ -5,19 +5,12 @@ export default class Ldap extends Component {
     constructor(props) {
         super(props)
     }
+    formRef = React.createRef()
     render() {
         return (
             <div>
-                <Form
-                style={{
-                    marginTop:20
-                }}
-                labelCol={{
-                    span:3
-                }}
-                wrapperCol={{
-                    span:10
-                }}>
+                <Form style={{marginTop:20}} labelCol={{span:3}}
+                wrapperCol={{span:10}} ref={this.formRef}>
                     <Form.Item
                         name="ip"
                         label="ip地址"

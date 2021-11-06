@@ -10,6 +10,7 @@ import RichTextEditor from '../Consumer/RichTextManage/index'
 import AccountManage from '../Consumer/AccountManage/index'
 import Drags from '../Consumer/DragManage/Draggable'
 import Ldap from '../Admin/LdapSet';
+import Smtp from '../Admin/SmtpSet';
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 //一、对函数组件的初步使用以及数据的存储
@@ -49,10 +50,11 @@ const menuAdmin = {
       icon: <BarsOutlined />,
       component: FormManage,
     }, {
-      title: "图表管理",
-      key: "/MainMenu/Admin/RchartManage",
-      link: "/MainMenu/Admin/RchartManage",
+      title: "SMTP设置",
+      key: "/MainMenu/Admin/SmtpSet",
+      link: "/MainMenu/Admin/SmtpSet",
       icon: <BarsOutlined />,
+      component: Smtp,
     }, {
       title: "轮播图管理",
       key: "/MainMenu/Admin/SlideshowManage",
