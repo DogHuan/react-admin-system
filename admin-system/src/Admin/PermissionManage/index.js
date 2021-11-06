@@ -19,6 +19,20 @@ export default class Permission extends Component{
         })
     }
 
+    handleAdd=()=>{
+        let newData = {
+            id:'',
+            username:'',
+            role:'',
+            permission:'',
+            comment:''
+        }
+        const data = this.state.data
+        this.setState =({
+            data: data ? [newData, ...data] :[newData]
+        })
+    }
+
     handleChange=(key,e)=>{
         const index = this.state.data?.findIndex(item =>
             item.id===this.state.editingKeys
@@ -94,8 +108,43 @@ export default class Permission extends Component{
                     message.error("保存失败"+error)
                 })
         }
-
     }
+
+    handleCancel=()=>{
+        this.setState =({
+            editingKeys:''
+        })
+        this.fetchData()
+    }
+
+    handleDelete=(id)=>{
+        if (!id||id==='') {
+            const index = this.state.data?.findIndex(item =>{
+                return item?.id === this.state.editingKeys
+            })
+            const data = this.state.data[index]
+            fetch("url",{
+                method:'DELETE',
+                body:JSON.stringify({
+                    id:data.id
+                })
+            }).then(response=>response.json(
+            )).then(result=>{
+                if (result.code===200) {
+                    message.success("删除成功")
+                    this.setState = ({
+                        editingKeys:''
+                    })
+                    this.fetchData()
+                } else{
+                    message.error("删除失败"+result.msg)
+                }
+            }).catch(function(error){
+                message.error("删除失败"+error)
+            })
+        }
+    }
+
     render(){
 
         const columns = [
@@ -227,6 +276,10 @@ export default class Permission extends Component{
         ]
         return(
             <div>
+                <Button
+                onClick={this.handleAdd}>
+                    增加
+                </Button>
                 <Table
                 columns={columns}
                 data={this.state.data}
