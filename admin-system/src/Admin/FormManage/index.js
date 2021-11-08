@@ -23,6 +23,8 @@ export default class FormManage extends Component {
       }else{
         message.error("设置失败"+result.msg)
       }
+    }).catch(function(error){
+      message.error("提交失败"+error)
     })
   }
 

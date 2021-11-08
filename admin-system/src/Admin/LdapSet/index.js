@@ -1,15 +1,80 @@
 import React, { Component } from "react";
-import { Button, Form, Input} from "antd";
+import { Button, Form, Input, message} from "antd";
 const { TextArea } = Input;
 export default class Ldap extends Component {
     constructor(props) {
         super(props)
     }
+
     formRef = React.createRef()
+
+    handleSumit=()=>{
+        const formData = this.formRef.current.getFieldsValue([
+            'ip','dn','port','password','ou','filters','mapping'
+        ])
+        fetch("url",{
+            method:"POST",
+            header : {
+                contentType: 'application/json',
+              },
+            body:JSON.stringify({
+                ip:formData.ip,
+                dn:formData.dn,
+                port:formData.port,
+                password:formData.password,
+                ou:formData.ou,
+                filters:formData.filters,
+                mapping:formData.mapping
+            })
+        }).then(result =>result.json(
+        )).then(result =>{
+            if (result.code===200) {
+                message.success("设置成功")
+                this.fetchData()
+            } else{
+                message.error("设置失败"+result.msg)
+            }
+        }).catch(function(error){
+            message.error("设置失败"+error)
+        })
+    }
+
+    handleTest=()=>{
+        const formData = this.formRef.current.getFieldsValue([
+            'ip','dn','port','password','ou','filters','mapping'
+        ])
+        fetch("url",{
+            method:"PUT",
+            header:{
+                contentType: 'application/json',
+              },
+              body:JSON.stringify({
+                ip:formData.ip,
+                dn:formData.dn,
+                port:formData.port,
+                password:formData.password,
+                ou:formData.ou,
+                filters:formData.filters,
+                mapping:formData.mapping
+              })
+        }).then(response=>response.json(
+        )).then(result =>{
+            if (result.code===200) {
+                message.success("修改成功")
+                this.fetchData()
+            } else{
+                message.error("修改失败"+result.msg)
+            }
+        }).catch(function(error){
+            message.error("修改失败"+error)
+        })
+    }
+
     render() {
         return (
             <div>
-                <Form style={{marginTop:20}} labelCol={{span:3}}
+                <Form 
+                style={{marginTop:20}} labelCol={{span:3}}
                 wrapperCol={{span:10}} ref={this.formRef}>
                     <Form.Item
                         name="ip"
@@ -69,10 +134,7 @@ export default class Ldap extends Component {
                         <TextArea />
                     </Form.Item>
                     <Form.Item
-                    labelCol={{
-                        offset:3,
-                        span:8
-                    }}>
+                    wrapperCol={{ offset:3, span:10}} >
                         <Button
                         onClick={this.onReset}>重置</Button>
                         <Button

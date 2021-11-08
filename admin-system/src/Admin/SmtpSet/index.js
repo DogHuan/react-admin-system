@@ -1,15 +1,78 @@
 import React, { Component } from "react";
-import { Form, Input, InputNumber,Checkbox, Button } from 'antd'
+import { Form, Input, InputNumber,Checkbox, Button, message } from 'antd'
 
 export default class Smtp extends Component {
-    constructor(props) {
-        super(props)
-    }
+
     formRef = React.createRef()
+
+    handleSumit=()=>{
+        const formData = this.formRef.current.getFieldsValue([
+            'address','smtp_port','sender','s_password','send',
+            'recipient_list','is_ssl'
+        ])
+        fetch("url",{
+            method:"POST",
+            header:{
+                contentType: 'application/json',
+              },
+            body:JSON.stringify({
+                address:formData.address,
+                smtp_port:formData.smtp_port,
+                sender:formData.sender,
+                s_password:formData.s_password,
+                send:formData.send,
+                recipient_list:formData.recipient_list,
+                is_ssl:formData.is_ssl
+            })
+        }).then(response=>response.json(
+        )).then(result =>{
+            if (result.code===200) {
+                message.success("修改成功")
+            } else{
+                message.error("修改失败"+result.msg)
+            }
+        }).catch(function(error){
+            message.error("修改失败"+error)
+        })
+    }
+
+    handleTest=()=>{
+        const formData = this.formRef.current.getFieldsValue([
+            'address','smtp_port','sender','s_password','send',
+            'recipient_list','is_ssl'
+        ])
+        fetch("url",{
+            method:"PUT",
+            header:{
+                contentType: 'application/json',
+              },
+            body:JSON.stringify({
+                address:formData.address,
+                smtp_port:formData.smtp_port,
+                sender:formData.sender,
+                s_password:formData.s_password,
+                send:formData.send,
+                recipient_list:formData.recipient_list,
+                is_ssl:formData.is_ssl
+            })
+        }).then(response =>response.json(
+        )).then(result =>{
+            if (result.code===200) {
+                message.success("修改成功")
+                this.fetchData()
+            } else{
+                message.error("修改失败"+result.msg)
+            }
+        }).catch(function(error){
+            message.error("修改失败"+error)
+        })
+    }
+    
     render() {
         return (
             <div>
-                <Form style={{marginTop:20}} labelCol={{span:3}}
+                <Form 
+                style={{marginTop:20}} labelCol={{span:3}}
                 wrapperCol={{span:10}} ref={this.formRef}>
                     <Form.Item
                         name="address"
@@ -86,7 +149,8 @@ export default class Smtp extends Component {
                             </p>
                         </Checkbox>
                     </Form.Item>
-                    <Form.Item>
+                    <Form.Item
+                    wrapperCol={{ offset:3, span:8}}>
                         <Button
                         onClick={this.onReset}>重置</Button>
                         <Button
