@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Form, Input, InputNumber, Button,message } from 'antd';
 export default class FormManage extends Component {
+
   formRef =React.createRef();
 
   handleSubmit=()=>{
@@ -20,6 +21,7 @@ export default class FormManage extends Component {
     )).then((result)=>{
       if(result.code===200){
         message.success('提交成功')
+        this.fetchData()
       }else{
         message.error("设置失败"+result.msg)
       }
@@ -32,9 +34,24 @@ export default class FormManage extends Component {
     this.formRef.current.resetFields()
   }
   
+  fetchData=()=>{
+    ("url"
+    ).then(response =>response.json()
+    ).then(result =>{
+      this.formRef.current.setFieldsValue(result.data)
+    }).catch(function(error){
+      message.error("获取失败"+error)
+    })
+  }
+
+  componentDidMount(){
+    this.fetchData()
+  }
+
   render() {
     return (
-      <Form style={{ marginTop: 20 }} ref={this.formRef}
+      <Form 
+        style={{ marginTop: 20 }} ref={this.formRef}
         labelCol={{ span: 3 }} wrapperCol={{ span: 8 }}>
         <Form.Item
           name="Name"

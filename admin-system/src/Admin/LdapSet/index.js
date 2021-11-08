@@ -70,6 +70,20 @@ export default class Ldap extends Component {
         })
     }
 
+    fetchData=()=>{
+        ("url"
+        ).then(response =>response.json()
+        ).then(result =>{
+            this.formRef.current.setFieldsValue(result.data)
+        }).catch(function(error){
+            message.error("获取失败"+error)
+        })
+    }
+
+    componentDidMount(){
+        this.fetchData()
+    }
+
     render() {
         return (
             <div>
