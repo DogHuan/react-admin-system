@@ -149,7 +149,7 @@ export default class UserManage extends Component {
 
   handleDelete = (id) => {
     if (!id || id === '') {
-      this.fetch()
+      this.fetchData()
     } else {
       fetch('url', {
         method: 'DELETE',
@@ -163,7 +163,7 @@ export default class UserManage extends Component {
           this.setState({
             editingKey: ''
           })
-          this.fetch()
+          this.fetchData()
         } else {
           message.error("操作失败" + result.msg)
         }
@@ -171,6 +171,20 @@ export default class UserManage extends Component {
         message.error("操作失败" + error)
       })
     }
+  }
+
+  fetchData=()=>{
+    ("url")
+    .then(response =>response.json())
+    .then(res =>{
+      this.setState({
+        data:res.data
+      })
+    })
+  }
+
+  componentDidMount(){
+    this.fetchData()
   }
 
   render() {

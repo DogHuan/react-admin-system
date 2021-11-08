@@ -13,7 +13,7 @@ export default class CommondityManage extends Component {
     isEditing = (record) => record.id === this.state.editingKeys
 
     handleEdit = (record) => {
-      this.setState = ({
+      this.setState ({
         currentRecord:record,
         editingKeys:record.id
       })
@@ -42,7 +42,7 @@ export default class CommondityManage extends Component {
           )).then(result =>{
             if(result.code===200){
               message.success("添加成功")
-              this.setState =({
+              this.setState ({
                 editingKeys:''
               })
               this.fetchData()
@@ -61,6 +61,20 @@ export default class CommondityManage extends Component {
           method:"PUT",
         })
       }
+    }
+
+    fetch=()=>{
+      ("url")
+      .then(responser =>responser.json())
+      .then(res =>{
+        this.setState({
+          data:res.data
+        })
+      })
+    }
+
+    componentDidMount(){
+      this.fetchData()
     }
 
     render() {

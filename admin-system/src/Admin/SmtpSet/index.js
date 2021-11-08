@@ -28,6 +28,7 @@ export default class Smtp extends Component {
         )).then(result =>{
             if (result.code===200) {
                 message.success("修改成功")
+                this.fetchData()
             } else{
                 message.error("修改失败"+result.msg)
             }

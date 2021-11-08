@@ -13,7 +13,7 @@ export default class Permission extends Component{
     isEditing = (record)=>record.id===this.state.editingKeys
 
     handleEdit=(record)=>{
-        this.setState=({
+        this.setState ({
             currentRecord:record,
             editingKeys:record.id
         })
@@ -28,7 +28,7 @@ export default class Permission extends Component{
             comment:''
         }
         const data = this.state.data
-        this.setState =({
+        this.setState ({
             data: data ? [newData, ...data] :[newData]
         })
     }
@@ -42,7 +42,7 @@ export default class Permission extends Component{
                 ...this.state.data[index],
                 [key]:e.target.value
             })
-            this.setState =({
+            this.setState ({
                 data:newData
             })
     }
@@ -69,7 +69,7 @@ export default class Permission extends Component{
                 )).then(result =>{
                     if (result.code===200) {
                         message.success("保存成功")
-                        this.setState=({
+                        this.setState({
                             editingKeys:''
                         })
                         this.fetchData()
@@ -97,7 +97,7 @@ export default class Permission extends Component{
                 )).then(result=>{
                     if (result.code===200) {
                         message.success("保存成功")
-                        this.setState=({
+                        this.setState({
                             editingKeys:''
                         })
                         this.fetchData()
@@ -111,7 +111,7 @@ export default class Permission extends Component{
     }
 
     handleCancel=()=>{
-        this.setState =({
+        this.setState ({
             editingKeys:''
         })
         this.fetchData()
@@ -132,7 +132,7 @@ export default class Permission extends Component{
             )).then(result=>{
                 if (result.code===200) {
                     message.success("删除成功")
-                    this.setState = ({
+                    this.setState ({
                         editingKeys:''
                     })
                     this.fetchData()
@@ -143,6 +143,20 @@ export default class Permission extends Component{
                 message.error("删除失败"+error)
             })
         }
+    }
+
+    fetchData=()=>{
+        ("url")
+        .then(response =>response.json())
+        .then(res =>{
+            this.setState({
+                data:res.data
+            })
+        })
+    }
+
+    componentDidMount(){
+        this.fetchData()
     }
 
     render(){
