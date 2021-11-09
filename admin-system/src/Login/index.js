@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, Switch, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Form, Input, Button, Checkbox, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import cookie from 'react-cookies'

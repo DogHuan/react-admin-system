@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Layout, Menu, Breadcrumb, Dropdown, Avatar } from 'antd';
 import logo from '../Image/background-1.jpg'
 import { Route, Switch, Link, withRouter, Redirect } from 'react-router-dom'
+import cookie from 'react-cookies'
 import { UserOutlined, AppstoreOutlined, BarsOutlined } from "@ant-design/icons";
 import UserManage from '../Admin/UserManage/index'
 import CommondityManage from '../Admin/CommodityManage'
@@ -11,6 +12,7 @@ import AccountManage from '../Consumer/AccountManage/index'
 import Drags from '../Consumer/DragManage/Draggable'
 import Ldap from '../Admin/LdapSet';
 import Smtp from '../Admin/SmtpSet';
+import { setRawCookie } from 'react-cookies';
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 //一、对函数组件的初步使用以及数据的存储
@@ -149,6 +151,28 @@ const MainMenu = (props) => {
               style={{ width: 40, height: 40 , borderRadius:"50%"}} />
           </Link>
         </div>
+        <Dropdown overlay={
+          <Menu>
+            <Menu.Item
+            key="0"
+            onClick={()=>{
+              cookie.remove(['role','token'])
+              props.history.replace('/login')
+            }}
+            >
+              退出登录
+            </Menu.Item>
+          </Menu>
+        }>
+          <Avatar
+              className="avatar"
+              icon={<UserOutlined />}
+              onClick={e => e.preventDefault()}
+          />
+        </Dropdown>
+        <span className="avatarName">
+          欢迎{window.username}
+        </span>
       </Header>
       {/* 2、设置左侧导航栏菜单，首先包裹大的layout，设置宽高等样式。
       添加Sider侧边栏组件，然后添加Meun菜单组件。*/}

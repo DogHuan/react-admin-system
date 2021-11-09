@@ -68,7 +68,7 @@ export default class UserManage extends Component {
     })
   }
 
-  //点击编辑时，传入record对象，渲染当前的currentRecord，editingKey为当前的record.id
+  //点击编辑时，传入record对象，更新当前的currentRecord，editingKey为当前的record.id
   handleEdit = (record) => {
     this.setState({
       currentRecord: record,
