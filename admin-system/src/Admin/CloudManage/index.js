@@ -1,5 +1,5 @@
-import { message } from 'antd';
 import React, { Component } from 'react';
+import { Table, Input, Button, message, Typography, Popconfirm} from 'antd';
 export default class Cloud extends Component {
     constructor(props) {
         super(props)

@@ -1,6 +1,6 @@
-import { Button, Input, message } from "antd";
-import Table from "rc-table/lib/Table";
+import { Table, Button, Input, Select, Typography, Popconfirm, message } from "antd";
 import React, { Component } from "react";
+const { Option } = Select 
 export default class extends Component {
     constructor(props){
         super(props)

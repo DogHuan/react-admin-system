@@ -1,4 +1,5 @@
 import { Component } from "react";
+import {Table, Input, Typogrphy, Popconfirm, Button, message} from 'antd'
 
 export default class Permission extends Component{
     constructor(props){

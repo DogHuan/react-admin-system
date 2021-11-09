@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Table, Tag, Space, Input, Typography, Popconfirm, message } from 'antd';
+import { Table, Input, Typography, Popconfirm, message } from 'antd';
 export default class CommondityManage extends Component {
     constructor(props) {
         super(props)

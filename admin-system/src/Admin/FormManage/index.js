@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form, Input, InputNumber, Button,message } from 'antd';
+import { Form, Input, InputNumber, Button, message } from 'antd';
 export default class FormManage extends Component {
 
   formRef =React.createRef();
