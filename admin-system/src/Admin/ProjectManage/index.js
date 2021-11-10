@@ -311,12 +311,12 @@ export default class Project extends Component {
         ];
         return (
             <div className="container">
-                <div className="project-statistic-card">
-                    <Button className="summary-box project listDiv" onClick={() => this.fetchData()}
-                        style={{
-                            height: "90px",
-                            backgroundColor: "#1872cf"
-                        }}>
+                <div className="project-statistic-card" style={{marginBottom:20}}>
+                    <Button className="summary-box listDiv" onClick={() => this.fetchData()}
+                     style={{
+                        height: "90px",
+                        backgroundColor: "#1872cf"
+                      }}>
                         <div className="number">
                             模块
                         </div>
@@ -325,34 +325,20 @@ export default class Project extends Component {
                         </div>
                     </Button>
                     {
-                        this.state.dataCloudType?.map((item, index) =>
-                            <Button className="summary-box listDiv listColor "
-                                key={item.cps_name}
-                                title={'点击筛选' + item.cps_name + '模块的列表'}
-                                onClick={() => this.showContent(item.cps_name)}
-                                style={{
-                                    height: "90px",
-                                    backgroundColor: this.state.backgroundColor[index]
-                                }}
+                        this.state.data?.testData?.map((item,index)=>{
+                            <Button
+                            key={item.id}
+                            onClick={()=>this.handleBoxFilter(item.name)}
                             >
                                 <div className="number">
-                                    {item.cps_name == this.state.tyles[index].val ?
-                                        this.state.tyles[index].len : 0}
+                                    {item.testname}
                                 </div>
                                 <div className="text">
-                                    {item.cps_name}
+                                    {item.testname}
                                 </div>
                             </Button>
-                        )
+                        })
                     }
-
-                </div>
-                <div
-                    className="bottom-button"
-                    style={{
-                        paddingTop: 40,
-                        marginLeft: 30,
-                    }}>
                 </div>
                 <Button
                     onClick={this.handleAdd}

@@ -1,12 +1,10 @@
+
 .project-statistic-card{
-    display: flex;
-    justify-content: left;
-    margin: 0 20px;
-  }
-  .project{
-      background-color: #1872cf;  
-    }
-  .listDiv:hover, .listDiv:focus, .listDiv:active{
-  box-shadow: 6px 6px 6px 6px ;
-  cursor: pointer;
-  } 
+  display: flex;
+  justify-content: left;
+  margin: 0 20px;
+}
+.listDiv:hover, .listDiv:focus, .listDiv:active{
+box-shadow: 6px 6px 6px 6px ;
+cursor: pointer;
+} 
