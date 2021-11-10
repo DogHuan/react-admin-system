@@ -91,7 +91,7 @@ export default class Login extends Component {
     //具体属性和属性值参考antd的validateMessages属性对应的GitHub上的代码
     const validateMessages = {
       string: {
-        range: "${label} 必须在 ${min} 到 ${max} 之间",
+        range: "${name} 必须在 ${min} 到 ${max} 之间",
       },
     }
 
@@ -102,7 +102,6 @@ export default class Login extends Component {
           <Form className="login-form" ref={this.formRef} validateMessages={validateMessages}>
             <Form.Item
               name="username"
-              label="账号"
               //约束规则，rules
               rules={[
                 {
@@ -116,7 +115,6 @@ export default class Login extends Component {
             </Form.Item>
             <Form.Item
               name="password"
-              label="密码"
               rules={[
                 {
                   required: true,
@@ -143,7 +141,7 @@ export default class Login extends Component {
                 onChange={this.handleChange}
               />
             </Form.Item>
-            <Form.Item name="remember" valuePropName="checked">
+            <Form.Item name="remember" valuePropName="checked" noStyle>
               <Checkbox onChange={this.handleChangePassword} >
                 记住密码
               </Checkbox>
