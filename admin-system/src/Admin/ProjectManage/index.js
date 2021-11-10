@@ -4,11 +4,11 @@ const { Option } = Select
 export default class extends Component {
     constructor(props){
         super(props)
-        this.state = ({
+        this.state = {
             data:'',
             editingKeys:'',
             currentRecord:'',
-        })
+        }
     }
 
     isEditing =(record)=>record.id === this.state.editingKeys
@@ -162,6 +162,14 @@ export default class extends Component {
 
     render() {
 
+        const filterList = []
+        this.state.data?.cpsList?.forEach(item => {
+            filterList.push({
+                title:item.name,
+                value:item.name
+            })
+        });
+
         const columns = [
             {
                 title: '序号',
@@ -189,6 +197,8 @@ export default class extends Component {
                 title: '项目类别',
                 dataIndex: 'type',
                 key: 'type',
+                filters:filterList,
+                onFilter:(value, record) =>record.type?.indexOf(value) === 0,
                 render: (_, record) => {
                     const editable = this.isEditing(record)
                     return editable ? (

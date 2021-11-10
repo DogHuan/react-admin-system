@@ -154,6 +154,14 @@ export default class Cloud extends Component {
         }
     }
     render() {
+
+        const filterList = []
+        this.state.data.cpsList.forEach(item  => {
+            filterList.push({
+                text:item.name,
+                value:item.name
+            })           
+        });
         const columns = [
             {
                 title: "序号",
@@ -164,6 +172,8 @@ export default class Cloud extends Component {
                 title: "云服务商",
                 dataIndex: "cloud",
                 key: "cloud",
+                filters:filterList,
+                onFilter:(value,record)=>record.cloud.indexOf(value)===0,
                 render: (_, record) => {
                     const editable = this.isEditing(record)
                     return editable ? (

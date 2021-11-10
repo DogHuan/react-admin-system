@@ -162,6 +162,13 @@ export default class Permission extends Component{
 
     render(){
 
+        const filterList = []
+        this.state.data?.cpsList.forEach(item =>{
+            filterList.push({
+                text:item.name,
+                value:item.name
+            })
+        })
         const columns = [
             {
                 title:"序号",
@@ -172,6 +179,8 @@ export default class Permission extends Component{
                 title:"用户名",
                 dataIndex:"username",
                 key:"username",
+                filters:filterList,
+                onFilter:(value,record)=>record.username.indexOf(value)===0,
                 render:(_,record)=>{
                     const editable = this.isEditing(record)
                     return editable ? (
