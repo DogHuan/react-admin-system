@@ -13,6 +13,7 @@ import Drags from '../Consumer/DragManage/Draggable'
 import Ldap from '../Admin/LdapSet';
 import Smtp from '../Admin/SmtpSet';
 import { setRawCookie } from 'react-cookies';
+import Project from '../Admin/ProjectManage';
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 //一、对函数组件的初步使用以及数据的存储
@@ -62,6 +63,12 @@ const menuAdmin = {
       key: "/MainMenu/Admin/SlideshowManage",
       link: "/MainMenu/Admin/SlideshowManage",
       icon: <BarsOutlined />,
+    }, {
+      title: "项目管理",
+      key: "/MainMenu/Admin/ProjectManage",
+      link: "/MainMenu/Admin/ProjectManage",
+      icon: <BarsOutlined />,
+      component:Project
     }
   ]
 }

@@ -1,0 +1,35 @@
+
+.summary-box{
+    float: left;
+    width: 20%;
+    height: 80px;
+    color: white;
+    text-align: center;
+    margin: 0 2%;
+}
+
+.summary-box .number{
+    font-size: 24px;
+}
+
+.summary-box .text{
+    font-size: 16px;
+}
+
+.site-navigation-steps {
+    margin-bottom: 60px;
+    box-shadow: 0px -1px 0 0 #e8e8e8 inset;
+}
+
+.left-step {
+    text-align: left !important; 
+}
+
+.left-step:first-child {
+    padding-left: 12px !important; 
+}
+
+.column-filter-btn {
+    float: right;
+    margin-right: 16px;
+}

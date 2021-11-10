@@ -1,160 +1,161 @@
 import { Table, Button, Input, Select, Typography, Popconfirm, message } from "antd";
 import React, { Component } from "react";
 import './index.css'
-const { Option } = Select 
-export default class extends Component {
-    constructor(props){
+import '../../common.css'
+const { Option } = Select
+export default class Project extends Component {
+    constructor(props) {
         super(props)
         this.state = {
-            data:'',
-            editingKeys:'',
-            currentRecord:'',
+            data: '',
+            editingKeys: '',
+            currentRecord: '',
         }
     }
 
-    isEditing =(record)=>record.id === this.state.editingKeys
+    isEditing = (record) => record.id === this.state.editingKeys
 
-    handleEdit =(record)=>{
-        this.setState ({
-            currentRecord:record,
-            editingKeys:record.id
+    handleEdit = (record) => {
+        this.setState({
+            currentRecord: record,
+            editingKeys: record.id
         })
     }
 
-    handleAdd =()=>{
+    handleAdd = () => {
         const newData = {
-            id:'',
-            project:'',
-            type:'',
-            approver:'',
-            accountId:''
+            id: '',
+            project: '',
+            type: '',
+            approver: '',
+            accountId: ''
         }
         const data = this.state.data
-        this.setState ({
+        this.setState({
             data: data ? [newData, ...data] : [newData]
         })
     }
 
-    handleChange=(key,e)=>{
+    handleChange = (key, e) => {
         const index = this.state.data?.findIndex(item =>
-            item.id===this.state.editingKeys
-            )
-            let newData =[...this.state.data]
-            newData.splice(index,1,{
-                ...this.state.data[index],
-                [key]:e.target.value?.toString()
-            })
-            this.setState ({
-                data:newData
-            })
+            item.id === this.state.editingKeys
+        )
+        let newData = [...this.state.data]
+        newData.splice(index, 1, {
+            ...this.state.data[index],
+            [key]: e.target.value?.toString()
+        })
+        this.setState({
+            data: newData
+        })
     }
 
-    handleSave =(id)=>{
-        if (!id||id==='') {
-            const index =this.state.data?.findIndex((item)=>{
-                return item?.id === this.state.editingKeys
-            })
-            const index =this.state.data[index]
-            fetch("url",{
-                method:"POST",
-                header:new Headers({
-                    "Content-Type": "application/json;charset=UTF-8",
-                }),
-                body:JSON.stringify({
-                    id:data.id,
-                    project:data.project,
-                    type:data.type,
-                    approver:data.approver,
-                    accountId:data.accountId
-                })
-            }).then(result =>result.json(
-            )).then(result =>{
-                if(result.code===200){
-                    message.success("修改成功");
-                    this.setState({
-                        editingKeys:''
-                    })
-                    this.fetchData()
-                } else{
-                    message.error("修改失败"+result.msg)
-                }
-            }).catch(function(error){
-                message.error("保存失败"+error)
-            })
-        } else{
-            const index = this.state.data?.findIndex((item) =>{
+    handleSave = (id) => {
+        if (!id || id === '') {
+            const index = this.state.data?.findIndex((item) => {
                 return item?.id === this.state.editingKeys
             })
             const data = this.state.data[index]
-            fetch("url",{
-                method:"PUT",
-                body:JSON.stringify({
-                    id:data.id,
-                    project:data.project,
-                    type:data.type,
-                    approver:data.approver,
-                    accountId:data.accountId
+            fetch("url", {
+                method: "POST",
+                header: new Headers({
+                    "Content-Type": "application/json;charset=UTF-8",
+                }),
+                body: JSON.stringify({
+                    id: data.id,
+                    project: data.project,
+                    type: data.type,
+                    approver: data.approver,
+                    accountId: data.accountId
                 })
-            }).then(result =>result.json(
-            )).then(result =>{
+            }).then(result => result.json(
+            )).then(result => {
                 if (result.code === 200) {
-                    message.success("修改成功")
-                    this.setState ({
-                        editingKeys:''
+                    message.success("修改成功");
+                    this.setState({
+                        editingKeys: ''
                     })
                     this.fetchData()
-                } else{
-                    message.error("修改失败"+result.msg)
+                } else {
+                    message.error("修改失败" + result.msg)
                 }
-            }).catch(function(error){
-                message.error("保存失败"+error)
+            }).catch(function (error) {
+                message.error("保存失败" + error)
+            })
+        } else {
+            const index = this.state.data?.findIndex((item) => {
+                return item?.id === this.state.editingKeys
+            })
+            const data = this.state.data[index]
+            fetch("url", {
+                method: "PUT",
+                body: JSON.stringify({
+                    id: data.id,
+                    project: data.project,
+                    type: data.type,
+                    approver: data.approver,
+                    accountId: data.accountId
+                })
+            }).then(result => result.json(
+            )).then(result => {
+                if (result.code === 200) {
+                    message.success("修改成功")
+                    this.setState({
+                        editingKeys: ''
+                    })
+                    this.fetchData()
+                } else {
+                    message.error("修改失败" + result.msg)
+                }
+            }).catch(function (error) {
+                message.error("保存失败" + error)
             })
         }
     }
-    
-    handleCancel =()=>{
-        this.setState ({
-            editingKeys:''
+
+    handleCancel = () => {
+        this.setState({
+            editingKeys: ''
         })
         this.fetchData()
     }
 
-    handleDelete =(id)=>{
-        if(!id || id ===''){
+    handleDelete = (id) => {
+        if (!id || id === '') {
             const index = this.state.data?.findIndex(item =>
-                item?.id===this.state.editingKeys
-                )
+                item?.id === this.state.editingKeys
+            )
             const data = this.state.data[index]
-            fetch("url",{
-                method:"DELETE",
-                body:JSON.stringify({
-                    id:data.id
+            fetch("url", {
+                method: "DELETE",
+                body: JSON.stringify({
+                    id: data.id
                 })
-            }).then(result =>result.json(
-            )).then(result =>{
-                if (result.code===200) {
+            }).then(result => result.json(
+            )).then(result => {
+                if (result.code === 200) {
                     message.success("删除成功")
-                    this.setState ({
-                        editingKeys:''
+                    this.setState({
+                        editingKeys: ''
                     })
                     this.fetchData()
-                } else{
-                    message.error("删除失败"+result.msg)
+                } else {
+                    message.error("删除失败" + result.msg)
                 }
-            }).catch(function(error){
-                message.error("删除失败"+error)
+            }).catch(function (error) {
+                message.error("删除失败" + error)
             })
         }
     }
 
-    fetchData=()=>{
+    fetchData = () => {
         fetch("url")
-        .then(response =>response.json())
-        .then(res =>{
-            this.setState({
-                data:res.data
+            .then(response => response.json())
+            .then(res => {
+                this.setState({
+                    data: res.data
+                })
             })
-        })
     }
 
     // componentDidMount(){
@@ -166,8 +167,8 @@ export default class extends Component {
         const filterList = []
         this.state.data?.cpsList?.forEach(item => {
             filterList.push({
-                title:item.name,
-                value:item.name
+                title: item.name,
+                value: item.name
             })
         });
 
@@ -198,8 +199,8 @@ export default class extends Component {
                 title: '项目类别',
                 dataIndex: 'type',
                 key: 'type',
-                filters:filterList,
-                onFilter:(value, record) =>record.type?.indexOf(value) === 0,
+                filters: filterList,
+                onFilter: (value, record) => record.type?.indexOf(value) === 0,
                 render: (_, record) => {
                     const editable = this.isEditing(record)
                     return editable ? (
@@ -310,14 +311,57 @@ export default class extends Component {
         ];
         return (
             <div className="container">
-                <Button 
-                onClick={this.handleAdd}
+                <div className="project-statistic-card">
+                    <Button className="summary-box project listDiv" onClick={() => this.fetchData()}
+                        style={{
+                            height: "90px",
+                            backgroundColor: "#1872cf"
+                        }}>
+                        <div className="number">
+                            模块
+                        </div>
+                        <div className="text" >
+                            计数
+                        </div>
+                    </Button>
+                    {
+                        this.state.dataCloudType?.map((item, index) =>
+                            <Button className="summary-box listDiv listColor "
+                                key={item.cps_name}
+                                title={'点击筛选' + item.cps_name + '模块的列表'}
+                                onClick={() => this.showContent(item.cps_name)}
+                                style={{
+                                    height: "90px",
+                                    backgroundColor: this.state.backgroundColor[index]
+                                }}
+                            >
+                                <div className="number">
+                                    {item.cps_name == this.state.tyles[index].val ?
+                                        this.state.tyles[index].len : 0}
+                                </div>
+                                <div className="text">
+                                    {item.cps_name}
+                                </div>
+                            </Button>
+                        )
+                    }
+
+                </div>
+                <div
+                    className="bottom-button"
+                    style={{
+                        paddingTop: 40,
+                        marginLeft: 30,
+                    }}>
+                </div>
+                <Button
+                    onClick={this.handleAdd}
                 >
                     添加项目
-                    </Button>
+                </Button>
                 <Table
-                columns={columns}
-                data={this.state.data}
+                    columns={columns}
+                    data={this.state.data}
                 >
                 </Table>
             </div>
