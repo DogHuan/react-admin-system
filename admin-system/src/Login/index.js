@@ -5,6 +5,7 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import cookie from 'react-cookies'
 import './index.css'
 import mainMenu from "../MainMenu";
+
 export default class Login extends Component {
   constructor(props) {
     super(props)
@@ -63,7 +64,7 @@ export default class Login extends Component {
           cookie.save({
             username: formData.username,
             role: result?.data?.role,
-            token:result?.data?.token
+            token: result?.data?.token
           })
         }
         // 当一个路由点击多次，将会出现警告，使用replace，这样会替换历史记录中上一次相同路由记录，
@@ -80,14 +81,18 @@ export default class Login extends Component {
   }
 
   //为密码加密
-  handleChangePassword =(e)=>{
-    console.log("密码",e);
+  handleChangePassword = (e) => {
+    console.log("密码", e);
   }
 
   render() {
-    //给form表单添加表单验证，使用validatemessages属性
+
+    //form表单校验方法1、使用validatemessages属性统一校验，先定义类型，再设置校验属性，属性值以及提示信息
+    //具体属性和属性值参考antd的validateMessages属性对应的GitHub上的代码
     const validateMessages = {
-    
+      string: {
+        range: "${label} 必须在 ${min} 到 ${max} 之间",
+      },
     }
 
     return (
@@ -97,6 +102,7 @@ export default class Login extends Component {
           <Form className="login-form" ref={this.formRef} validateMessages={validateMessages}>
             <Form.Item
               name="username"
+              label="账号"
               //约束规则，rules
               rules={[
                 {
@@ -110,28 +116,39 @@ export default class Login extends Component {
             </Form.Item>
             <Form.Item
               name="password"
+              label="密码"
               rules={[
                 {
                   required: true,
                   message: '请输入你的密码！',
                 },
+                {
+                  type: 'string',
+                  min: 2,
+                  max: 10,
+                }
+                //form表单校验方法2、逐个添加校验属性和属性值
+                // {
+                //   min: 4,
+                //   message: '密码必须不小于4位！',
+                // },
+                // {
+                //   max: 12,
+                //   message: '密码必须不大于12位！',
+                // },
               ]}
             >
               <Input.Password
                 prefix={<LockOutlined />}
-                type="password"
-                placeholder="请输入密码"
                 onChange={this.handleChange}
               />
             </Form.Item>
-            <Form.Item name="remember" valuePropName="checked" noStyle>
+            <Form.Item name="remember" valuePropName="checked">
               <Checkbox onChange={this.handleChangePassword} >
                 记住密码
-                </Checkbox>
+              </Checkbox>
             </Form.Item>
-            <Form.Item style={{
-              paddingTop: 20
-            }}>
+            <Form.Item>
               <Button type="primary" htmlType="submit" onClick={this.handleSumit} >
                 登录
               </Button>
