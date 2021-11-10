@@ -147,7 +147,7 @@ export default class Permission extends Component{
     }
 
     fetchData=()=>{
-        ("url")
+        fetch("url")
         .then(response =>response.json())
         .then(res =>{
             this.setState({
@@ -156,9 +156,9 @@ export default class Permission extends Component{
         })
     }
 
-    componentDidMount(){
-        this.fetchData()
-    }
+    // componentDidMount(){
+    //     this.fetchData()
+    // }
 
     render(){
 

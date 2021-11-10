@@ -64,7 +64,7 @@ export default class CommondityManage extends Component {
     }
 
     fetch=()=>{
-      ("url")
+      fetch("url")
       .then(responser =>responser.json())
       .then(res =>{
         this.setState({
@@ -73,9 +73,9 @@ export default class CommondityManage extends Component {
       })
     }
 
-    componentDidMount(){
-      this.fetchData()
-    }
+    // componentDidMount(){
+    //   this.fetchData()
+    // }
 
     render() {
 

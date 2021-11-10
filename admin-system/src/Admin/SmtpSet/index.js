@@ -70,7 +70,7 @@ export default class Smtp extends Component {
     }
 
     fetchData=()=>{
-        ("url"
+        fetch("url"
         ).then(response =>response.json()
         ).then(result =>{
             this.formRef.current.setFieldsValue(result.data)
@@ -79,9 +79,9 @@ export default class Smtp extends Component {
         })
     }
 
-    componentDidMount(){
-        this.fetchData()
-    }
+    // componentDidMount(){
+    //     this.fetchData()
+    // }
     
     render() {
         return (

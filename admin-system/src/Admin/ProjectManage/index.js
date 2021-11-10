@@ -1,5 +1,6 @@
 import { Table, Button, Input, Select, Typography, Popconfirm, message } from "antd";
 import React, { Component } from "react";
+import './index.css'
 const { Option } = Select 
 export default class extends Component {
     constructor(props){
@@ -147,7 +148,7 @@ export default class extends Component {
     }
 
     fetchData=()=>{
-        ("url")
+        fetch("url")
         .then(response =>response.json())
         .then(res =>{
             this.setState({
@@ -156,9 +157,9 @@ export default class extends Component {
         })
     }
 
-    componentDidMount(){
-        this.fetchData()
-    }
+    // componentDidMount(){
+    //     this.fetchData()
+    // }
 
     render() {
 
@@ -308,7 +309,7 @@ export default class extends Component {
             }
         ];
         return (
-            <div>
+            <div className="container">
                 <Button 
                 onClick={this.handleAdd}
                 >

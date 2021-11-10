@@ -111,7 +111,7 @@ export default class Cloud extends Component {
     }
 
     fetchData =()=> {
-    ("url")
+    fetch("url")
     .then(response=>response.json())
     .then(res =>{
         this.setState ({
