@@ -3,8 +3,11 @@ import { Link } from 'react-router-dom';
 import { Form, Input, Button, Checkbox, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import cookie from 'react-cookies'
+import CryptoJS from "crypto-js";
 import './index.css'
 import mainMenu from "../MainMenu";
+const key = CryptoJS.enc.Utf8.parse("hPF36*nC&b0yIDNz");
+const iv = CryptoJS.enc.Utf8.parse('25sXG$HdoDjNj*J!');
 
 export default class Login extends Component {
   constructor(props) {
@@ -29,12 +32,12 @@ export default class Login extends Component {
         "Content-Type": "application/json;charset=UTF-8",
       }),
       //3.4.1、直接传送formData数组给后端
-      body: JSON.stringify(formData)
-      //3.4.2、分别设置formData内部的值
-      // body:JSON.stringify({
-      //   username:formData.username,
-      //   password:formData.password
-      // })
+      // body: JSON.stringify(formData)
+      // 3.4.2、分别设置formData内部的值
+      body:JSON.stringify({
+        username:formData.username,
+        password:this.Encrypt(formData.password)
+      })
       //4、.then对请求结果的处理步骤以及方法
       //4.1、对响应体response也进行转json的.json()处理
     }).then((response) => response.json()
@@ -53,7 +56,7 @@ export default class Login extends Component {
         if (formData.remeber === true) {
           cookie.save({
             username: formData.username,
-            password: formData.password,
+            password: this.Encrypt(formData.password),
             role: result?.data?.role,
             token: result?.data?.token
           })
@@ -81,8 +84,51 @@ export default class Login extends Component {
   }
 
   //为密码加密
-  handleChangePassword = (e) => {
-    console.log("密码", e);
+
+  handleChange=(e)=>{
+    cookie.load(['username','password','role','token'])
+    if (cookie.password ===this.state.password && cookie.password!==undefined) {
+      this.setState({
+        password:this.Encrypt(this.state.password)
+      })
+    } else{
+      this.setState({
+        password:this.Encrypt(e.target.value)
+      })
+    }
+  }
+
+  Encrypt(word) {
+    if (word) {
+      let srcs = CryptoJS.enc.Utf8.parse(word);
+      let encrypted = CryptoJS.AES.encrypt(srcs, key, {
+        iv: iv,
+        mode: CryptoJS.mode.CBC,
+        padding: CryptoJS.pad.Pkcs7
+      });
+      return encrypted.ciphertext.toString().toUpperCase();
+    }
+  }
+
+  Decrypt(word) {
+    if (word) {
+      let encryptedHexStr = CryptoJS.enc.Hex.parse(word);
+      let srcs = CryptoJS.enc.Base64.stringify(encryptedHexStr);
+      let decrypt = CryptoJS.AES.decrypt(srcs, key,
+        {
+          iv: iv,
+          mode: CryptoJS.mode.CBC,
+          padding: CryptoJS.pad.Pkcs7
+        });
+      let decryptedStr = decrypt.toString(CryptoJS.enc.Utf8);
+      return decryptedStr.toString();
+    }
+  }
+
+  componentDidCatch(){
+    if (cookie.token) {
+      this.state.data.push("/mainMenu")
+    }
   }
 
   render() {
@@ -138,11 +184,11 @@ export default class Login extends Component {
             >
               <Input.Password
                 prefix={<LockOutlined />}
-                onChange={this.handleChange}
+                onChange={(e)=>this.handleChange(e)}
               />
             </Form.Item>
             <Form.Item name="remember" valuePropName="checked" noStyle>
-              <Checkbox onChange={this.handleChangePassword} >
+              <Checkbox>
                 记住密码
               </Checkbox>
             </Form.Item>
