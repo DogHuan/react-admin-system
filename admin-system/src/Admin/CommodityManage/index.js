@@ -6,7 +6,10 @@ export default class CommondityManage extends Component {
         this.state = {
           data:[],
           currentRecord:'',
-          editingKeys:''
+          editingKeys:'',
+          clickAble:true,
+          page:1,
+          pageSize:10,
         }
     }
 

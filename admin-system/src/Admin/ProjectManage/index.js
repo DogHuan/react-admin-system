@@ -10,6 +10,9 @@ export default class Project extends Component {
             data: '',
             editingKeys: '',
             currentRecord: '',
+            clickAble:true,
+            page:1,
+            pageSize:10
         }
     }
 
@@ -31,7 +34,12 @@ export default class Project extends Component {
             accountId: ''
         }
         const data = this.state.data
+        if (this.state.clickAble===false) {
+            return false
+        }
         this.setState({
+            clickAble:false,
+            page:1,
             data: data ? [newData, ...data] : [newData]
         })
     }
@@ -172,6 +180,17 @@ export default class Project extends Component {
             })
         });
 
+        const pagination = {
+            showSizeChanger:true,
+            current:this.state.page,
+            pageSize:this.state.pageSize,
+            onChange:(page,pageSize)=>{
+                this.setState({
+                    page:page,
+                    pageSize:pageSize
+                })
+            }
+        }
         const columns = [
             {
                 title: '序号',
@@ -348,6 +367,7 @@ export default class Project extends Component {
                 <Table
                     columns={columns}
                     data={this.state.data}
+                    pagination={pagination}
                 >
                 </Table>
             </div>

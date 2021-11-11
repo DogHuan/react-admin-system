@@ -3,11 +3,14 @@ import { Table, Input, Button, message, Typography, Popconfirm} from 'antd';
 export default class Cloud extends Component {
     constructor(props) {
         super(props)
-        this.state = ({
+        this.state = {
             data: [],
             editingKeys: '',
-            currentRecord: ''
-        })
+            currentRecord: '',
+            clickAble:true,
+            page:1,
+            pageSize:10
+        }
     }
 
     isEditing = (record) => record.id === this.state.editingKeys
@@ -25,8 +28,13 @@ export default class Cloud extends Component {
             cloud: '',
             content: ''
         }
-        const data = this.state.data
+        const { data, clickAble} = this.state
+        if (clickAble===false) {
+            return false
+        }
         this.setState ({
+            clickAble:false,
+            page:1,
             data: data ? [newData, ...data] : [newData]
         })
     }
@@ -115,7 +123,8 @@ export default class Cloud extends Component {
     .then(response=>response.json())
     .then(res =>{
         this.setState ({
-            data:res.data
+            data:res.data,
+            clickAble:true
         })
     }).catch(function(error){
         message.error("获取失败"+error)
@@ -162,6 +171,19 @@ export default class Cloud extends Component {
                 value:item.name
             })           
         });
+
+        const pagination ={
+            showSizeChanger:true,
+            current:this.state.page,
+            pageSize:this.state.pageSize,
+            onChange:(page,pageSize)=>{
+                this.setState({
+                    page:page,
+                    pageSize:pageSize
+                })
+            }
+
+        }
         const columns = [
             {
                 title: "序号",
@@ -266,6 +288,7 @@ export default class Cloud extends Component {
                 <Table
                     columns={columns}
                     data={this.state.data}
+                    pagination={pagination}
                 ></Table>
             </div>
         )

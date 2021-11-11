@@ -4,11 +4,14 @@ import {Table, Input, Typogrphy, Popconfirm, Button, message} from 'antd'
 export default class Permission extends Component{
     constructor(props){
         super(props)
-        this.state = ({
+        this.state = {
             data:[],
             editingKeys:'',
-            currentRecord:''
-        })
+            currentRecord:'',
+            clickAble:true,
+            page:1,
+            pageSize:10,
+        }
     }
 
     isEditing = (record)=>record.id===this.state.editingKeys
@@ -29,7 +32,12 @@ export default class Permission extends Component{
             comment:''
         }
         const data = this.state.data
+        if (this.state.clickAble===fales) {
+            return false
+        }
         this.setState ({
+            clickAble:false,
+            page:1,
             data: data ? [newData, ...data] :[newData]
         })
     }
@@ -151,6 +159,7 @@ export default class Permission extends Component{
         .then(response =>response.json())
         .then(res =>{
             this.setState({
+                clickAble:true,
                 data:res.data
             })
         })
@@ -169,6 +178,19 @@ export default class Permission extends Component{
                 value:item.name
             })
         })
+
+        const pagination ={
+            showSizeChanger:true,
+            current:this.state.page,
+            pageSize:this.state.pageSize,
+            onChange:(page,pageSize)=>{
+                this.setState({
+                    page:page,
+                    pageSize:pageSize
+                })
+            }
+        }
+
         const columns = [
             {
                 title:"序号",
@@ -307,6 +329,7 @@ export default class Permission extends Component{
                 <Table
                 columns={columns}
                 data={this.state.data}
+                pagination={pagination}
                 ></Table>
             </div>
         )
