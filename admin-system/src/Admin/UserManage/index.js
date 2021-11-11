@@ -7,7 +7,10 @@ export default class UserManage extends Component {
     this.state = {
       data: [],
       editingKey: '',
-      currentRecord: undefined
+      currentRecord: undefined,
+      clickAble:true,
+      page:1,
+      pageSize:10
     }
   }
 
@@ -44,7 +47,12 @@ export default class UserManage extends Component {
     }
     //拿到初始数据，再从新渲染的时候判断数据是否为新值，如果是，则把他放在就数据最前方。
     const data = this.state.data
+    if (this.state.clickAble===false) {
+      return false
+    }
     this.setState({
+      clickAble:false,
+      page:1,
       data: data ? [newData, ...data] : [newData],
     })
   }
@@ -191,6 +199,19 @@ export default class UserManage extends Component {
 
     const dataSource = this.state.data && [...this.state.data]
     //1、设置columns内部对象属性，注意render属性方法的两种使用方式。
+
+    const pagination={
+      showSizeChanger:true,
+      current:this.state.page,
+      pageSize:this.state.pageSize,
+      onChange:(page,pageSize)=>{
+        this.setState({
+          page:page,
+          pageSize:pageSize
+        })
+      }
+    }
+
     const columns = [
       {
         title: '序号',
@@ -353,7 +374,8 @@ export default class UserManage extends Component {
         </div>
         <Table 
         columns={columns}
-        dataSource={dataSource} />
+        dataSource={dataSource}
+        pagination={pagination} />
       </div>
     )
   }
