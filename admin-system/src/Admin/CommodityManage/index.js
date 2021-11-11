@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Table, Input, Typography, Popconfirm, message } from 'antd';
+import { Table, Input, Typography, Popconfirm, message, Button } from 'antd';
 export default class CommondityManage extends Component {
     constructor(props) {
         super(props)
@@ -19,6 +19,23 @@ export default class CommondityManage extends Component {
       this.setState ({
         currentRecord:record,
         editingKeys:record.id
+      })
+    }
+    handleAdd =()=>{
+      let newData = {
+        id:'',
+        commodityType:'',
+        commodityName:''
+      }
+      const data = this.state.data
+      if (this.state.clickAble===false) {
+        return false
+      }
+      this.setState({
+        clickAble:false,
+        page:1,
+        data: data ? [newData,...data]:[newData]
+
       })
     }
 
@@ -66,7 +83,7 @@ export default class CommondityManage extends Component {
       }
     }
 
-    fetch=()=>{
+    fetchData=()=>{
       fetch("url")
       .then(responser =>responser.json())
       .then(res =>{
@@ -81,6 +98,18 @@ export default class CommondityManage extends Component {
     // }
 
     render() {
+
+      const pagination ={
+        showSizeChanger:true,
+        current:this.state.page,
+        pageSize:this.state.pageSize,
+        onChange:(page,pageSize)=>{
+          this.setState({
+            page:page,
+            pageSize:pageSize
+          })
+        }
+      }
 
     const columns = [
     {
@@ -174,11 +203,18 @@ export default class CommondityManage extends Component {
     }
     ];
     return (
+      <div>
+      <Button
+      onClick={()=>this.handleAdd}
+      >
+        添加
+        </Button>
         <Table
          columns={columns}
          dataSource={this.state.data}
          >
          </Table>
+         </div>
     )
 }
 }
