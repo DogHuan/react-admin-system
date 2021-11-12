@@ -12,51 +12,36 @@ const iv = CryptoJS.enc.Utf8.parse('25sXG$HdoDjNj*J!');
 export default class Login extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      password:window.password,
+      username:window.username,
+      remember:true
+    }
   }
 
-  //一、使用fetch异步向后台请求数据的方法和步骤。
-  //1、此处使用的是表单的非受控组件，React.createRef()，创建formRef对象绑定到form表单
-  formRef = React.createRef();
-
-  handleSumit = () => {
-    //2、抓取登录表单输入的值，使用formData数组存储getFieldsValue获取到对应字段名的值
-    const formData = this.formRef.current.getFieldsValue([
-      'username', 'password', 'remember'
-    ])
-    //3、fetch()异步请求方法的步骤
-    //3.1、url请求地址 3.2、method请求方法：POST, GET, OPTIONS, PUT, DELETE, UPDATE
-    //3.3、header请求头(请求头格式需要分情况设置) 3.4、body请求体(这里使用JSON格式发送数据)
+  onFinish = () => {
     fetch("url", {
       method: "POST",
       header: new Headers({
         "Content-Type": "application/json;charset=UTF-8",
-      }),
-      //3.4.1、直接传送formData数组给后端
-      // body: JSON.stringify(formData)
-      // 3.4.2、分别设置formData内部的值
+      }),   
       body:JSON.stringify({
-        username:formData.username,
-        password:this.Encrypt(formData.password)
+        username:this.state.username,
+        password:this.state.password
       })
-      //4、.then对请求结果的处理步骤以及方法
-      //4.1、对响应体response也进行转json的.json()处理
     }).then((response) => response.json()
     ).then((result) => {
-      //4.2、判断请求结果的msg
-      // if(result.msg==='ok')
-      //4.3、判断请求结果的code值
       if (result.code >= 200 || result.code < 300) {
         console.log("登录成功")
-
         // 二、思考：API连接成功后，要保持页面刷新后仍保留原本信息，而不是返回登录页面。
         //1、保留原先登录信息即cookie本地存储的使用。js本地存储有cookie和store。
         // 1.1、加载名为cookieName的cookie信息,cookie.load(cookieName)
         cookie.load()
         //1.2、判断是否勾选了记住密码选项，如果是则cooike保存密码，用户名，角色,token等信息
-        if (formData.remeber === true) {
+        if (this.state.remember === true) {
           cookie.save({
-            username: formData.username,
-            password: this.Encrypt(formData.password),
+            username: this.state.username,
+            password: this.state.password,
             role: result?.data?.role,
             token: result?.data?.token
           })
@@ -65,7 +50,7 @@ export default class Login extends Component {
         else {
           cookie.remove(['password'])
           cookie.save({
-            username: formData.username,
+            username: this.state.username,
             role: result?.data?.role,
             token: result?.data?.token
           })
@@ -83,6 +68,12 @@ export default class Login extends Component {
     })
   }
 
+  handleCheck=(event)=>{
+    this.setState({
+      remeber:event.target.checked
+    })
+    console.log(event.target.checked);
+  }
   //为密码加密
 
   handleChange=(e)=>{
@@ -127,7 +118,7 @@ export default class Login extends Component {
 
   componentDidCatch(){
     if (cookie.token) {
-      this.state.data.push("/mainMenu")
+      this.props.history.push("/mainMenu")
     }
   }
 
@@ -144,8 +135,16 @@ export default class Login extends Component {
     return (
       <div className="login">
         <div className="loginForm">
-          {/* 给Form绑定ref属性，这样可以保证form表单变化在任何时间总是拿到正确的实例。*/}
-          <Form className="login-form" ref={this.formRef} validateMessages={validateMessages}>
+          {/* 给Form绑定initialValues属性，初始化表单的属性值。
+          然后绑定onFinish提交表单且数据验证成功后回调事件*/}
+          <Form className="login-form" 
+          initialValues={{
+            remember:true,
+            username:this.state.username,
+            password:this.Encrypt(this.state.password)
+          }} 
+          validateMessages={validateMessages}
+          onFinish={this.onFinish}>
             <Form.Item
               name="username"
               //约束规则，rules
@@ -184,16 +183,18 @@ export default class Login extends Component {
             >
               <Input.Password
                 prefix={<LockOutlined />}
+                type="password"
                 onChange={(e)=>this.handleChange(e)}
               />
             </Form.Item>
             <Form.Item name="remember" valuePropName="checked" noStyle>
-              <Checkbox>
+              <Checkbox
+              onChange={(e)=>this.handleCheck(e)}>
                 记住密码
               </Checkbox>
             </Form.Item>
             <Form.Item>
-              <Button type="primary" htmlType="submit" onClick={this.handleSumit} >
+              <Button type="primary" htmlType="submit" className="login-form-button">
                 登录
               </Button>
             </Form.Item>
