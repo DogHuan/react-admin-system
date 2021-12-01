@@ -1,11 +1,40 @@
 import './App.css';
 import { Route, Switch, Redirect } from 'react-router-dom'
-import Login from './Login/index'
-import MainMenu from './MainMenu';
+import Login from './Login/index';
+import Base64 from 'base-64';
+import MainMenu from './MainMenu/index';
+import cookie from 'react-cookies';
 
 // 一、函数组件的声明方式有两种：
 // 1、function + 函数名   2、const + 函数名=(props)=>
 const App = (props) => {
+
+  const parseTokenGetUser = (jwtTokenString) => {
+    let base64Url = jwtTokenString.split('.')[1];
+    let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    try {
+      return JSON.parse(Base64.decode(base64))
+    } catch (e) {
+      console.log(e);
+    }
+  }
+  const querys = new URLSearchParams(props.location?.search?.slice(1))
+  const token = querys.get("token")
+  if (token) {
+    const tokenGetContext = parseTokenGetUser(token)
+    window.username = tokenGetContext?.username
+    window.role = tokenGetContext?.role
+    window.token = token
+    props.history.replace(props.location?.pathname)
+  } else if (!window.username || !window.role) {
+    if (props.location?.pathname !== '/login') {
+      cookie.load()
+      if (!window.username || !window.role) {
+        props.history?.replace('/login')
+      }
+    }
+  }
+
   return (
     //二、设置默认路由的两种方式
     // 方法1、再次添加Route组件，path="/"，component值设置为默认页面的className或者函数名

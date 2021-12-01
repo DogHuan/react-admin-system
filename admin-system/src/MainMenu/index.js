@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Layout, Menu, Breadcrumb, Dropdown, Avatar } from 'antd';
+import { Layout, Menu, Dropdown, Avatar } from 'antd';
 import logo from '../Image/background-1.jpg'
 import { Route, Switch, Link, withRouter, Redirect } from 'react-router-dom'
 import cookie from 'react-cookies'
@@ -12,7 +12,6 @@ import AccountManage from '../Consumer/AccountManage/index'
 import Drags from '../Consumer/DragManage/Draggable'
 import Ldap from '../Admin/LdapSet';
 import Smtp from '../Admin/SmtpSet';
-import { setRawCookie } from 'react-cookies';
 import Project from '../Admin/ProjectManage';
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -30,43 +29,43 @@ const menuAdmin = {
   children: [
     {
       title: "用户管理",
-      key: "/MainMenu/Admin/UserManage",
-      link: "/MainMenu/Admin/UserManage",
+      key: "/mainMenu/Admin/UserManage",
+      link: "/mainMenu/Admin/UserManage",
       icon: <BarsOutlined />,
       component: UserManage,
     }, {
       title: "商品管理",
-      key: "/MainMenu/Admin/CommondityManage",
-      link: "/MainMenu/Admin/CommondityManage",
+      key: "/mainMenu/Admin/CommondityManage",
+      link: "/mainMenu/Admin/CommondityManage",
       icon: <BarsOutlined />,
       component: CommondityManage,
     }, {
       title: "LDAP设置",
-      key: "/MainMenu/Admin/LdapSet",
-      link: "/MainMenu/Admin/LdapSet",
+      key: "/mainMenu/Admin/LdapSet",
+      link: "/mainMenu/Admin/LdapSet",
       icon: <BarsOutlined />,
       component: Ldap,
     }, {
       title: "表单管理",
-      key: "/MainMenu/Admin/FormManage",
-      link: "/MainMenu/Admin/FormManage",
+      key: "/mainMenu/Admin/FormManage",
+      link: "/mainMenu/Admin/FormManage",
       icon: <BarsOutlined />,
       component: FormManage,
     }, {
       title: "SMTP设置",
-      key: "/MainMenu/Admin/SmtpSet",
-      link: "/MainMenu/Admin/SmtpSet",
+      key: "/mainMenu/Admin/SmtpSet",
+      link: "/mainMenu/Admin/SmtpSet",
       icon: <BarsOutlined />,
       component: Smtp,
     }, {
       title: "轮播图管理",
-      key: "/MainMenu/Admin/SlideshowManage",
-      link: "/MainMenu/Admin/SlideshowManage",
+      key: "/mainMenu/Admin/SlideshowManage",
+      link: "/mainMenu/Admin/SlideshowManage",
       icon: <BarsOutlined />,
     }, {
       title: "项目管理",
-      key: "/MainMenu/Admin/ProjectManage",
-      link: "/MainMenu/Admin/ProjectManage",
+      key: "/mainMenu/Admin/ProjectManage",
+      link: "/mainMenu/Admin/ProjectManage",
       icon: <BarsOutlined />,
       component:Project
     }
@@ -74,27 +73,27 @@ const menuAdmin = {
 }
 
 //普通用户功能对象，后续可以依次添加对应的角色功能模块
-const menuUser = {
-  title:"用户功能",
-  key:"user",
-  children:[{
-    title:"邮件设置",
-    key:"/MainMenu/Consumer/RichTextManage",
-    link:"/MainMenu/Consumer/RichTextManage",
-    component:RichTextEditor,
-  },{
-    title:'账号管理',
-    key:'/MainMenu/Consumer/AccountManage',
-    link:'/MainMenu/Consumer/AccountManage',
-    component:AccountManage,
-  },{
-    title:'拖拽功能',
-    key:'/MainMenu/Consumer/DragManage',
-    link:'/MainMenu/Consumer/DragManage',
-    component:Drags,
-  }
- ]
-}
+// const menuUser = {
+//   title:"用户功能",
+//   key:"user",
+//   children:[{
+//     title:"邮件设置",
+//     key:"/MainMenu/Consumer/RichTextManage",
+//     link:"/MainMenu/Consumer/RichTextManage",
+//     component:RichTextEditor,
+//   },{
+//     title:'账号管理',
+//     key:'/MainMenu/Consumer/AccountManage',
+//     link:'/MainMenu/Consumer/AccountManage',
+//     component:AccountManage,
+//   },{
+//     title:'拖拽功能',
+//     key:'/MainMenu/Consumer/DragManage',
+//     link:'/MainMenu/Consumer/DragManage',
+//     component:Drags,
+//   }
+//  ]
+// }
 
 //二、使用函数组件，列出菜单变化的事件以及动态识别menu的菜单选项。
 const MainMenu = (props) => {
@@ -129,20 +128,20 @@ const MainMenu = (props) => {
   //4.1、假设以数字0为false，1为true
   //角色判断之后更新menuList数组存储菜单列表。数组role[0]代表管理员，role[1]代表审查员， 
   //role[2]代表普通用户，紧接着依次添加角色。当角色为true更新menuList，push菜单对象。
-  role?.[0] ==='1' && menuList.push(menuAdmin,menuUser)
-  role?.[1] ==='1' && menuList.push(menuUser)
+  role?.[0] ==='1' && menuList.push(menuAdmin)
+  // role?.[1] ==='1' && menuList.push(menuUser)
 
   //4.2、defaultSelectedKeys初始被选中的菜单项，设置为路由link的值。
   const defaultSelectedKeys = [window.location.pathname]
   //4.3、defaultRoute初始选中菜单的路由，这里取menuList列表第一个孩子节点的第一个link值
   const defaultRoute = menuList?.[0]?.children?.[0]?.link
 
-  //测试数据
-  let CmenuList = []
-  const CdefaultSelectedKeys = ''
-  const CopenKeys = CmenuList?.[0]?.children[0]
-  CmenuList.push(menuAdmin,menuUser)
-  const CdefaultRoute = CmenuList?.[0]?.children?.[0]?.link
+  // //测试数据
+  // let CmenuList = []
+  // const CdefaultSelectedKeys = ''
+  // const CopenKeys = CmenuList?.[0]?.children[0]
+  // CmenuList.push(menuAdmin,menuUser)
+  // const CdefaultRoute = CmenuList?.[0]?.children?.[0]?.link
 
   return (
     //三、整体使用layout布局大框架包裹其他两个layout,
@@ -190,13 +189,13 @@ const MainMenu = (props) => {
           <Menu
             theme="dark"
             mode="inline"
-            defaultSelectedKeys={CdefaultSelectedKeys}
-            openKeys={CopenKeys} 
+            defaultSelectedKeys={defaultSelectedKeys}
+            openKeys={openKeys} 
             onChange={handleChange}>
             {
               // 2.2、遍历menuList里item对象属性,即管理员或用户的数据值，
               //一级目录（父菜单）SubMenu的title和key
-              CmenuList?.map((item) => (
+              menuList?.map((item) => (
                 <SubMenu
                   key={item.key}
                   icon={item.icon}
@@ -222,7 +221,7 @@ const MainMenu = (props) => {
             <Switch>
             {/* 3.1、Content渲染不同的菜单选项数据需要根据Route不同的路由入口来配置path，component路径 */}
               {
-                CmenuList?.map(item =>
+                menuList?.map(item =>
                   item?.children?.map(subItem =>
                     <Route
                       path={subItem.link}
@@ -231,7 +230,7 @@ const MainMenu = (props) => {
                   ))
               }
               {/* 3.2、进入系统内部默认路由出口为mainMenu */}
-              <Redirect to={CdefaultRoute || '/mainMenu'} />
+              <Redirect to={defaultRoute || '/mainMenu'} />
             </Switch>
           </Content>
           <Footer className="layout-footer" style={{margin:"auto"}}>Copyright © 2021</Footer>

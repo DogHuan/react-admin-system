@@ -212,6 +212,7 @@ export default class CommondityManage extends Component {
         <Table
          columns={columns}
          dataSource={this.state.data}
+         pagination={pagination}
          >
          </Table>
          </div>

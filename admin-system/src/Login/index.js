@@ -1,11 +1,9 @@
 import React, { Component } from "react";
-import { Link } from 'react-router-dom';
 import { Form, Input, Button, Checkbox, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import cookie from 'react-cookies'
 import CryptoJS from "crypto-js";
 import './index.css'
-import mainMenu from "../MainMenu";
 const key = CryptoJS.enc.Utf8.parse("hPF36*nC&b0yIDNz");
 const iv = CryptoJS.enc.Utf8.parse('25sXG$HdoDjNj*J!');
 
@@ -20,7 +18,7 @@ export default class Login extends Component {
   }
 
   onFinish = () => {
-    fetch("url", {
+    fetch("http://30a3e94429.zicp.vip/auth", {
       method: "POST",
       header: new Headers({
         "Content-Type": "application/json;charset=UTF-8",
@@ -72,7 +70,6 @@ export default class Login extends Component {
     this.setState({
       remeber:event.target.checked
     })
-    console.log(event.target.checked);
   }
   //为密码加密
 
@@ -126,11 +123,11 @@ export default class Login extends Component {
 
     //form表单校验方法1、使用validatemessages属性统一校验，先定义类型，再设置校验属性，属性值以及提示信息
     //具体属性和属性值参考antd的validateMessages属性对应的GitHub上的代码
-    const validateMessages = {
-      string: {
-        range: "${name} 必须在 ${min} 到 ${max} 之间",
-      },
-    }
+    // const validateMessages = {
+    //   string: {
+    //     range: "${name} 必须在 ${min} 到 ${max} 之间",
+    //   },
+    // }
 
     return (
       <div className="login">
@@ -143,7 +140,6 @@ export default class Login extends Component {
             username:this.state.username,
             password:this.Encrypt(this.state.password)
           }} 
-          validateMessages={validateMessages}
           onFinish={this.onFinish}>
             <Form.Item
               name="username"
@@ -165,11 +161,11 @@ export default class Login extends Component {
                   required: true,
                   message: '请输入你的密码！',
                 },
-                {
-                  type: 'string',
-                  min: 2,
-                  max: 10,
-                }
+                // {
+                //   type: 'string',
+                //   min: 2,
+                //   max: 10,
+                // }
                 //form表单校验方法2、逐个添加校验属性和属性值
                 // {
                 //   min: 4,
@@ -189,6 +185,7 @@ export default class Login extends Component {
             </Form.Item>
             <Form.Item name="remember" valuePropName="checked" noStyle>
               <Checkbox
+              checked={this.state.remember}
               onChange={(e)=>this.handleCheck(e)}>
                 记住密码
               </Checkbox>
@@ -200,7 +197,6 @@ export default class Login extends Component {
             </Form.Item>
           </Form>
         </div>
-        <Link to="/mainMenu">用户</Link>
       </div>
     )
   }
