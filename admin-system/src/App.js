@@ -1,5 +1,5 @@
 import './App.css';
-import { Route, Switch, Redirect } from 'react-router-dom'
+import { Route, Switch, Redirect, withRouter, BrowserRouter } from 'react-router-dom'
 import Login from './Login/index';
 import Base64 from 'base-64';
 import MainMenu from './MainMenu/index';
@@ -41,6 +41,7 @@ const App = (props) => {
     // 然后设置exact属性
     // 方法2、添加Redirect组件，path="/"，to值设置为默认页面的className或者函数名
     // 方法2用 Redirect 会重定向url，推荐方法1。
+    <BrowserRouter>
     <Switch>
       {/* 此刻页面路由就会自定义为Login登录页面了，但是此刻方法1不能实现路由跳转。此处使用方法2*/}
       {/* <Route path="/" component={Login} ></Route> */}
@@ -48,7 +49,8 @@ const App = (props) => {
       <Route path="/mainMenu" component={MainMenu}></Route>
       <Redirect to="/login" />
     </Switch>
+    </BrowserRouter>
   );
 }
 
-export default App;
+export default withRouter(App);

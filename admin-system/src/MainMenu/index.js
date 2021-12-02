@@ -106,7 +106,7 @@ const MainMenu = (props) => {
 
   //2、openKeys控制当前SubMenu父级菜单项是否展开，取defaultOpenKeys分割后的字符,保持父级菜单的动态展开。
   //要使函数组件具有状态管理，可以使用钩子函数useState() Hook。
-  const [openKeys, setOpenKeys] = useState(defaultOpenKeys)
+  const [openKeys, setOpenKeys] = React.useState(defaultOpenKeys)
 
   //3、然后我们开始给菜单Menu添加回调函数，监听事件的变化。改变openKeys的状态。
   const handleChange =(keys)=>{
@@ -136,12 +136,6 @@ const MainMenu = (props) => {
   //4.3、defaultRoute初始选中菜单的路由，这里取menuList列表第一个孩子节点的第一个link值
   const defaultRoute = menuList?.[0]?.children?.[0]?.link
 
-  // //测试数据
-  // let CmenuList = []
-  // const CdefaultSelectedKeys = ''
-  // const CopenKeys = CmenuList?.[0]?.children[0]
-  // CmenuList.push(menuAdmin,menuUser)
-  // const CdefaultRoute = CmenuList?.[0]?.children?.[0]?.link
 
   return (
     //三、整体使用layout布局大框架包裹其他两个layout,
