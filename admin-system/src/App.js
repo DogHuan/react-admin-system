@@ -5,8 +5,6 @@ import Base64 from 'base-64';
 import MainMenu from './MainMenu/index';
 import cookie from 'react-cookies';
 
-// 一、函数组件的声明方式有两种：
-// 1、function + 函数名   2、const + 函数名=(props)=>
 const App = (props) => {
 
   const parseTokenGetUser = (jwtTokenString) => {
