@@ -71,18 +71,18 @@ const menuUser = {
   key:"user",
   children:[{
     title:"邮件设置",
-    key:"/MainMenu/Consumer/RichTextManage",
-    link:"/MainMenu/Consumer/RichTextManage",
+    key:"/mainMenu/Consumer/RichTextManage",
+    link:"/mainMenu/Consumer/RichTextManage",
     component:RichTextEditor,
   },{
     title:'账号管理',
-    key:'/MainMenu/Consumer/AccountManage',
-    link:'/MainMenu/Consumer/AccountManage',
+    key:'/mainMenu/Consumer/AccountManage',
+    link:'/mainMenu/Consumer/AccountManage',
     component:AccountManage,
   },{
     title:'拖拽功能',
-    key:'/MainMenu/Consumer/DragManage',
-    link:'/MainMenu/Consumer/DragManage',
+    key:'/mainMenu/Consumer/DragManage',
+    link:'/mainMenu/Consumer/DragManage',
     component:Drags,
   }
  ]
