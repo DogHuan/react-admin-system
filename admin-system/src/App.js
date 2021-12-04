@@ -41,8 +41,6 @@ const App = (props) => {
     // 方法2用 Redirect 会重定向url，推荐方法1。
     <BrowserRouter>
     <Switch>
-      {/* 此刻页面路由就会自定义为Login登录页面了，但是此刻方法1不能实现路由跳转。此处使用方法2*/}
-      {/* <Route path="/" component={Login} ></Route> */}
       <Route path="/login" component={Login}></Route>
       <Route path="/mainMenu" component={MainMenu}></Route>
       <Redirect to="/login" />
