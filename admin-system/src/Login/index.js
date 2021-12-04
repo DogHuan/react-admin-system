@@ -10,6 +10,7 @@ const iv = CryptoJS.enc.Utf8.parse('25sXG$HdoDjNj*J!');
 export default class Login extends Component {
   constructor(props) {
     super(props)
+    cookie.load()
     this.state = {
       password:window.password,
       username:window.username,
@@ -27,9 +28,13 @@ export default class Login extends Component {
         username:this.state.username,
         password:this.state.password
       })
-    }).then((response) => response.json()
+    }).then(response => response.json()
     ).then((result) => {
       if (result.code ===200) {
+        cookie.load(['username','password','role','token'])
+        if (cookie?.username) {
+          cookie.remove(['username', 'password', 'role', 'token'])
+        }
         if (this.state.remember === true) {
           cookie.save({
             username: this.state.username,
@@ -59,6 +64,12 @@ export default class Login extends Component {
   handleCheck=(event)=>{
     this.setState({
       remeber:event.target.checked
+    })
+  }
+
+  handleName=(e)=>{
+    this.setState({
+      username:e.target.value
     })
   }
 
@@ -117,11 +128,12 @@ export default class Login extends Component {
           initialValues={{
             remember:true,
             username:this.state.username,
-            password:this.Encrypt(this.state.password)
+            password:this.Decrypt(this.state.password)
           }} 
-          onFinish={this.onFinish}>
+          onFinish={this.onFinish.bind(this)}>
             <Form.Item
               name="username"
+              onChange={this.handleName.bind(this)}
               rules={[
                 {
                   required: true,
