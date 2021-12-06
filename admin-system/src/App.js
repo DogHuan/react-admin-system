@@ -16,19 +16,27 @@ const App = (props) => {
       console.log(e);
     }
   }
-  const querys = new URLSearchParams(props.location?.search?.slice(1))
+  const querys = new URLSearchParams(props.location.search?.slice(1))
   const token = querys.get("token")
   if (token) {
     const tokenGetContext = parseTokenGetUser(token)
-    window.username = tokenGetContext?.username
-    window.role = tokenGetContext?.role
-    window.token = token
-    props.history.replace(props.location?.pathname)
+    cookie.load(['username','password','role','token'])
+    if (tokenGetContext?.username === cookie.username) {
+      props.history.replace(props.location.pathname)
+    } else {
+      cookie.remove(['username', 'password', 'role', 'token'])
+      cookie.save({
+        username: tokenGetContext?.username,
+        token: token,
+        role: tokenGetContext?.role
+      })
+      props.history.replace(props.location.pathname)
+    }
   } else if (!window.username || !window.role) {
-    if (props.location?.pathname !== '/login') {
+    if (props.location.pathname !== '/login') {
       cookie.load()
       if (!window.username || !window.role) {
-        props.history?.replace('/login')
+        props.history.replace('/login')
       }
     }
   }

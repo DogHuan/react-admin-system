@@ -91,8 +91,7 @@ const menuUser = {
 const MainMenu = (props) => {
   const defaultOpenKeys = [window.location.pathname.split("/")?.[2]]
   const [openKeys, setOpenKeys] = React.useState(defaultOpenKeys)
-
-  const handleChange =(keys)=>{
+  const handleChange=(keys)=>{
     const lastOpenKeys = keys.find(key =>openKeys.indexOf(key)===-1)
     for(var i=0; i<menuList.length; i++){
       if(menuList[i].key===lastOpenKeys){
@@ -103,7 +102,7 @@ const MainMenu = (props) => {
   }
   const role = window.role
   let menuList = []
-  role?.[0] ==='1' && menuList.push(menuAdmin)
+  role?.[0] ==='1' && menuList.push(menuAdmin, menuUser)
   const defaultSelectedKeys = [window.location.pathname]
   const defaultRoute = menuList?.[0]?.children?.[0]?.link
 

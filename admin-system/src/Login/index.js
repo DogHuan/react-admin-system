@@ -155,7 +155,6 @@ export default class Login extends Component {
             >
               <Input.Password
                 prefix={<LockOutlined />}
-                type="password"
                 onChange={(e)=>this.handleChange(e)}
               />
             </Form.Item>
